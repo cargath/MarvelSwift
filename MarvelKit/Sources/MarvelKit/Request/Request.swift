@@ -12,7 +12,7 @@ public typealias DataResourceProtocol = DataProtocol & ResourceProtocol
 
 public class Request<Resource: DataResourceProtocol> {
 
-    var url: URL?
+    private(set) public var url: URL?
 
     // MARK: Internal initializers
 

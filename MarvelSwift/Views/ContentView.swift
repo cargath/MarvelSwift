@@ -10,39 +10,24 @@ import SwiftUI
 
 // MARK: - Comics
 
-struct Comic {
-
-    var id: Int = .random(in: 0 ... .max)
-
-    var title: String
-
-    var issueNumber: Int
-
-}
-
 struct ComicsItemView: View {
 
-    @State var comic: Comic
+    // TODO: @ObjectBinding doesn't compile, but seems like a better choice here?
+    @State var comic: ComicEntity
 
     var body: some View {
-        Text("\(comic.title) (2019) #\(comic.issueNumber)")
+        Text("\(comic.title ?? "nil")")
     }
 
 }
 
 struct ComicsView: View {
 
-    @State var comics = [
-        Comic(title: "Captain Marvel", issueNumber: 1),
-        Comic(title: "Captain Marvel", issueNumber: 2),
-        Comic(title: "Captain Marvel", issueNumber: 3)
-    ]
-
-    @State private var searchQuery = ""
+    @ObjectBinding var viewModel: FetchedObjectsViewModel<ComicEntity>
 
     var body: some View {
         List {
-            ForEach(comics.identified(by: \.id)) { comic in
+            ForEach(viewModel.fetchedObjects.identified(by: \.uniqueIdentifier)) { comic in
                 ComicsItemView(comic: comic)
             }
         }
@@ -60,11 +45,25 @@ struct SeriesItemView: View {
 
 }
 
+struct SeriesSectionView: View {
+
+    var body: some View {
+        Section(header: Text("Section")) {
+            ForEach(0 ... 6) { _ in
+                SeriesItemView()
+            }
+        }
+    }
+
+}
+
 struct SeriesView: View {
 
     var body: some View {
-        List(0 ... 42) { _ in
-            SeriesItemView()
+        List {
+            ForEach(0 ... 3) { _ in
+                SeriesSectionView()
+            }
         }
     }
 
@@ -76,8 +75,13 @@ struct SolicitsView: View {
 
     var body: some View {
         NavigationView {
-            ComicsView()
+            ComicsView(viewModel: DataController.shared.solicitationsViewModel())
                 .navigationBarTitle(Text("Solicits"))
+                .navigationBarItems(trailing: Button(action: {
+                    DataController.shared.update()
+                }) {
+                    Image(systemName: "arrow.2.circlepath")
+                })
         }
     }
 
@@ -87,7 +91,7 @@ struct PullsView: View {
 
     var body: some View {
         NavigationView {
-            ComicsView()
+            ComicsView(viewModel: DataController.shared.pullListViewModel())
                 .navigationBarTitle(Text("Pull List"))
         }
     }
