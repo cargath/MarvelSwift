@@ -13,6 +13,12 @@ TODO
 
 TODO
 
+## TODOs
+
+- Lowercase enum cases
+- Add Combine publishers
+- Add ability to get raw Dictionaries, for NSBatchInsertRequest compatibility 
+
 ## Attribution
 
 Data provided by Marvel. © 2014 Marvel.
