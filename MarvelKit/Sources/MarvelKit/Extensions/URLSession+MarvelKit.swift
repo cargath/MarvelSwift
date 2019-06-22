@@ -6,85 +6,46 @@
 //  Copyright © 2016 cargath. All rights reserved.
 //
 
+import Combine
 import Foundation
 
-extension URLSession {
+public extension URLSession {
 
-    private func dataTaskCompletionHandler<SuccessType: Decodable, FailureType: Decodable>(decoder: JSONDecoder, successHandler: @escaping (SuccessType) -> Void, failureHandler: @escaping (FailureType?, URLResponse?, Swift.Error?) -> Void) -> (Data?, URLResponse?, Swift.Error?) -> Void {
-        return { data, response, error in
+    func resourceTask<Resource>(with request: Request<Resource>, completion completionHandler: @escaping (Result<DataWrapper<DataContainer<Resource>>, Swift.Error>) -> Void) -> URLSessionTask {
 
-            guard let data = data else {
-                failureHandler(nil, response, error)
-                return
-            }
-
-            if let error = error {
-                failureHandler(try? decoder.decode(FailureType.self, from: data), response, error)
-                return
-            }
-
-            do {
-                successHandler(try decoder.decode(SuccessType.self, from: data))
-            } catch {
-                if let failure = try? decoder.decode(FailureType.self, from: data) {
-                    failureHandler(failure, response, nil)
-                } else {
-                    failureHandler(nil, response, error)
-                }
+        guard let url = request.url else {
+            return dataTask(with: URL(fileURLWithPath: "")) { _, _, _ in
+                completionHandler(.failure(MarvelKit.Error(message: "Failed to create URL for resource", code: "-1")))
             }
         }
-    }
 
-    public func jsonTask<SuccessType: Decodable, FailureType: Decodable>(with request: URLRequest, decoder: JSONDecoder, successHandler: @escaping (SuccessType) -> Void, failureHandler: @escaping (FailureType?, URLResponse?, Swift.Error?) -> Void) -> URLSessionDataTask {
-        return dataTask(with: request, completionHandler: dataTaskCompletionHandler(decoder: decoder, successHandler: successHandler, failureHandler: failureHandler))
-    }
-
-    public func jsonTask<SuccessType: Decodable, FailureType: Decodable>(with url: URL, decoder: JSONDecoder, successHandler: @escaping (SuccessType) -> Void, failureHandler: @escaping (FailureType?, URLResponse?, Swift.Error?) -> Void) -> URLSessionDataTask {
-        return dataTask(with: url, completionHandler: dataTaskCompletionHandler(decoder: decoder, successHandler: successHandler, failureHandler: failureHandler))
+        return dataTask(with: url) { data, response, error in
+            guard let data = data else {
+                completionHandler(.failure(error ?? MarvelKit.Error(message: "Unknown", code: "-1")))
+                return
+            }
+            do {
+                completionHandler(.success(try JSONDecoder().resource(from: data)))
+            } catch {
+                completionHandler(.failure(error))
+            }
+        }
     }
 
 }
 
 public extension URLSession {
 
-    private func resourceTask<Resource>(with url: URL, errorHandler: @escaping (Swift.Error) -> Void, successHandler: @escaping (DataWrapper<DataContainer<Resource>>) -> Void) -> URLSessionDataTask {
-        return jsonTask(with: url, decoder: .init(), successHandler: successHandler, failureHandler: { (marvelKitError: MarvelKit.Error?, response: URLResponse?, error: Swift.Error?) in
-
-            if let marvelKitError = marvelKitError {
-                errorHandler(marvelKitError)
-                return
-            }
-
-            if let error = error {
-                errorHandler(MarvelKit.Error(message: error.localizedDescription, code: "\((error as NSError).code)"))
-                return
-            }
-
-            if let response = response as? HTTPURLResponse {
-                errorHandler(MarvelKit.Error(message: HTTPURLResponse.localizedString(forStatusCode: response.statusCode), code: "\(response.statusCode)"))
-                return
-            }
-
-            errorHandler(MarvelKit.Error(message: "Unknown", code: "-1"))
-        })
-    }
-
+    // Keep the legacy method signature as a wrapper around the new Result type.
     func resourceTask<Resource>(with request: Request<Resource>, success successHandler: @escaping (DataWrapper<DataContainer<Resource>>) -> Void, error errorHandler: @escaping (Swift.Error) -> Void) -> URLSessionTask {
-        if let url = request.url {
-            return resourceTask(with: url, errorHandler: errorHandler) { (dataWrapper: DataWrapper<DataContainer<Resource>>) in
-
-                if let code = dataWrapper.code, code >= 300 {
-                    errorHandler(MarvelKit.Error(message: dataWrapper.status ?? "Unknown", code: String(code)))
-                    return
-                }
-
-                successHandler(dataWrapper)
+        return resourceTask(with: request, completion: { result in
+            switch result {
+                case .success(let response):
+                    successHandler(response)
+                case .failure(let error):
+                    errorHandler(error)
             }
-        } else {
-            return dataTask(with: URL(fileURLWithPath: "")) { _, _, _ in
-                errorHandler(MarvelKit.Error(message: "Failed to create URL for resource", code: "-1"))
-            }
-        }
+        })
     }
 
     // Same as above, but with flipped success and failure handlers, because it allows for nicer error chaining.
@@ -92,4 +53,23 @@ public extension URLSession {
         return resourceTask(with: request, success: successHandler, error: errorHandler)
     }
     
+}
+
+@available(iOS 13.0, *)
+public extension URLSession {
+
+    func resourceTaskPublisher<Resource>(with request: Request<Resource>) -> AnyPublisher<DataWrapper<DataContainer<Resource>>, Swift.Error> {
+
+        guard let url = request.url else {
+            return Publishers
+                .Fail(error: MarvelKit.Error(message: "Failed to create URL for resource", code: "-1"))
+                .eraseToAnyPublisher()
+        }
+
+        return dataTaskPublisher(for: url)
+            .map { $0.data }
+            .tryMap { try JSONDecoder().resource(from: $0) }
+            .eraseToAnyPublisher()
+    }
+
 }

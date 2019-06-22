@@ -6,6 +6,7 @@
 //  Copyright © 2019 cargath. All rights reserved.
 //
 
+import Combine
 import Foundation
 import MarvelKit
 
@@ -52,6 +53,22 @@ class MarvelKitController {
 
     func update() {
         // TODO: Fetch data
+        let subscriber = urlSession
+            .resourceTaskPublisher(with: marvelKitClient.solicitsRequest)
+            .sink(receiveCompletion: receiver(completion:), receiveValue: receiver(comics:))
+    }
+
+    func receiver(completion: Subscribers.Completion<Swift.Error>) {
+        switch completion {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .finished:
+                print("No data received")
+        }
+    }
+
+    func receiver(comics: DataWrapper<DataContainer<Comic>>) {
+        print(comics)
     }
 
 }

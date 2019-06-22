@@ -39,7 +39,7 @@ public extension Authentication {
 
     /// A md5 digest of the ts parameter, your private key and your public key (e.g. md5(ts+privateKey+publicKey)).
     func hash(timestamp: String) -> String {
-        return timestamp.appending(privateKey).appending(publicKey) // TODO: .md5
+        return timestamp.appending(privateKey).appending(publicKey).md5
     }
 
     /// A md5 digest of the ts parameter, your private key and your public key (e.g. md5(ts+privateKey+publicKey)).
