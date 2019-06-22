@@ -156,3 +156,6 @@ xcuserdata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.gitignore.io/api/swift,xcode,macos,swiftpm,carthage,fastlane,cocoapods
+
+# Local config
+LocalConfig.swift
