@@ -34,7 +34,17 @@ class CoreDataController {
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
                  */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                // TODO: Test whether this works + retry setting up a clean stack
+                if let url = storeDescription.url {
+                    do {
+                        try container.persistentStoreCoordinator.destroyPersistentStore(at: url, ofType: storeDescription.type, options: nil)
+                    } catch {
+                        let nserror = error as NSError
+                        fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                    }
+                } else {
+                    fatalError("Unresolved error \(error), \(error.userInfo)")
+                }
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true

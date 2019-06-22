@@ -26,7 +26,9 @@ class FetchedObjectsViewModel<ResultType>: NSObject, NSFetchedResultsControllerD
 
     init(fetchedResultsController: NSFetchedResultsController<ResultType>) {
         self.fetchedResultsController = fetchedResultsController
+        // Because NSObject
         super.init()
+        // Because didSet doesn't get called from initializers
         configure(with: self.fetchedResultsController)
     }
 

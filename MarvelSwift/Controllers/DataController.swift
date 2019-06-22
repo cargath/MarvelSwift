@@ -18,6 +18,10 @@ class DataController {
     }
 
     func update() {
+
+        // TODO: Retrieve the data and save it to Core Data
+        marvelKitController.update()
+
         coreDataController.persistentContainer.performBackgroundTask { backgroundContext in
 
             let comicZero = ComicEntity.init(context: backgroundContext)

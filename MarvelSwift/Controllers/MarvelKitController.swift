@@ -50,4 +50,8 @@ class MarvelKitController {
         self.urlSession = urlSession
     }
 
+    func update() {
+        // TODO: Fetch data
+    }
+
 }
