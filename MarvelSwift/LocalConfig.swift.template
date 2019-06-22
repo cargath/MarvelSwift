@@ -1,0 +1,14 @@
+//
+//  LocalConfig.swift
+//  MarvelSwift
+//
+//  Copy this file to 'LocalConfig.swift'.
+//  Add your Marvel API keys from http://developer.marvel.com
+//
+
+struct LocalConfig {
+
+    static let privateKey = ""
+    static let publicKey = ""
+
+}
