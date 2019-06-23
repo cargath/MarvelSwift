@@ -10,6 +10,8 @@ import Combine
 import Foundation
 import MarvelKit
 
+// MARK: - MarvelKitClient helpers
+
 extension MarvelKitClient {
 
     var solicitsRequest: MarvelKit.Request<MarvelKit.Comic> {
@@ -40,11 +42,29 @@ extension MarvelKitClient {
 
 }
 
+// MARK: - MarvelKitControllerDelegate
+
+protocol MarvelKitControllerDelegate: class {
+
+    func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveAttribution attribution: String)
+
+    func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveComics comics: [MarvelKit.Comic])
+
+    func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveSeries series: [MarvelKit.Series])
+
+    func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveError error: Swift.Error)
+
+}
+
+// MARK: - MarvelKitController
+
 class MarvelKitController {
 
     let marvelKitClient: MarvelKitClient
 
     let urlSession: URLSession
+
+    weak var delegate: MarvelKitControllerDelegate?
 
     init(marvelKitClient: MarvelKitClient = .shared, urlSession: URLSession = .shared) {
         self.marvelKitClient = marvelKitClient
@@ -53,22 +73,29 @@ class MarvelKitController {
 
     func update() {
         // TODO: Fetch data
-        let subscriber = urlSession
+        let _ = urlSession
             .resourceTaskPublisher(with: marvelKitClient.solicitsRequest)
-            .sink(receiveCompletion: receiver(completion:), receiveValue: receiver(comics:))
+            .sink(receiveCompletion: receiver(completion:), receiveValue: receiver(dataWrapper:))
     }
 
     func receiver(completion: Subscribers.Completion<Swift.Error>) {
         switch completion {
             case .failure(let error):
-                print(error.localizedDescription)
+                delegate?.marvelKitController(self, didReceiveError: error)
             case .finished:
-                print("No data received")
+                delegate?.marvelKitController(self, didReceiveError: MarvelKit.Error(message: "No data received.", code: "NoData"))
         }
     }
 
-    func receiver(comics: DataWrapper<DataContainer<Comic>>) {
-        print(comics)
+    func receiver(dataWrapper: DataWrapper<DataContainer<Comic>>) {
+
+        if let attributionText = dataWrapper.attributionText {
+            delegate?.marvelKitController(self, didReceiveAttribution: attributionText)
+        }
+
+        if let comics = dataWrapper.data?.results {
+            delegate?.marvelKitController(self, didReceiveComics: comics)
+        }
     }
 
 }

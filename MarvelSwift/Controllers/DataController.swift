@@ -6,6 +6,8 @@
 //  Copyright © 2019 cargath. All rights reserved.
 //
 
+import MarvelKit
+
 class DataController {
 
     let marvelKitController: MarvelKitController
@@ -15,35 +17,39 @@ class DataController {
     init(marvelKitController: MarvelKitController, coreDataController: CoreDataController) {
         self.marvelKitController = marvelKitController
         self.coreDataController = coreDataController
+        self.marvelKitController.delegate = self
     }
 
     func update() {
-
-        // TODO: Retrieve the data and save it to Core Data
         marvelKitController.update()
+    }
 
+}
+
+extension DataController: MarvelKitControllerDelegate {
+
+    func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveAttribution attribution: String) {
+        //
+    }
+
+    func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveComics comics: [MarvelKit.Comic]) {
         coreDataController.persistentContainer.performBackgroundTask { backgroundContext in
-
-            let comicZero = ComicEntity.init(context: backgroundContext)
-            comicZero.uniqueIdentifier = 0
-            comicZero.title = "Captain Marvel"
-
-            let comicOne = ComicEntity.init(context: backgroundContext)
-            comicOne.uniqueIdentifier = 1
-            comicOne.title = "Hawkeye"
-
-            let comicTwo = ComicEntity.init(context: backgroundContext)
-            comicTwo.uniqueIdentifier = 2
-            comicTwo.title = "X-Men"
-
-            // TODO: Improve error handling
-            do {
-                try backgroundContext.save()
-            } catch {
-                print("FOOBAR: \(error.localizedDescription)")
-            }
+            ComicEntity.updateOrInsert(with: comics, into: backgroundContext)
+            backgroundContext.saveChanges()
         }
     }
+
+    func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveSeries series: [MarvelKit.Series]) {
+        //
+    }
+
+    func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveError error: Swift.Error) {
+        //
+    }
+
+}
+
+extension DataController {
 
     func solicitationsViewModel() -> FetchedObjectsViewModel<ComicEntity> {
         return FetchedObjectsViewModel(fetchedResultsController: coreDataController.fetchedSolicitationsController())
