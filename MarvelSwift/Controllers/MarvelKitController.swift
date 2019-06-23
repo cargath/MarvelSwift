@@ -71,20 +71,16 @@ class MarvelKitController {
         self.urlSession = urlSession
     }
 
+}
+
+// MARK: - MarvelKitController + MarvelKitClient
+
+extension MarvelKitController {
+
     func update() {
-        // TODO: Fetch data
         let _ = urlSession
             .resourceTaskPublisher(with: marvelKitClient.solicitsRequest)
             .sink(receiveCompletion: receiver(completion:), receiveValue: receiver(dataWrapper:))
-    }
-
-    func receiver(completion: Subscribers.Completion<Swift.Error>) {
-        switch completion {
-            case .failure(let error):
-                delegate?.marvelKitController(self, didReceiveError: error)
-            case .finished:
-                delegate?.marvelKitController(self, didReceiveError: MarvelKit.Error(message: "No data received.", code: "NoData"))
-        }
     }
 
     func receiver(dataWrapper: DataWrapper<DataContainer<Comic>>) {
@@ -95,6 +91,35 @@ class MarvelKitController {
 
         if let comics = dataWrapper.data?.results {
             delegate?.marvelKitController(self, didReceiveComics: comics)
+            // We can't fetch multiple series IDs at once.
+            // We can fetch series which contain one of multiple comic IDs.
+            // -> Compute the ID of the first comic of each series.
+            let seriesIDs = Set(comics.compactMap({ $0.series?.id }))
+            let comicIDs = seriesIDs.compactMap({ seriesID in comics.filter({ $0.series?.id == seriesID }).first?.id })
+            // We can't filter by more than 10 comic IDs at once.
+            // -> Split comic IDs into chunks of 10 elements each.
+            let chunks = comicIDs.compactMap(Int.init).chunks(10)
+            // Fetch series information for each chunk of comic IDs.
+            for chunk in chunks {
+                let _ = urlSession
+                    .resourceTaskPublisher(with: marvelKitClient.seriesRequest(comics: chunk))
+                    .sink(receiveCompletion: receiver(completion:), receiveValue: receiver(dataWrapper:))
+            }
+        }
+    }
+
+    func receiver(dataWrapper: DataWrapper<DataContainer<Series>>) {
+        if let series = dataWrapper.data?.results {
+            delegate?.marvelKitController(self, didReceiveSeries: series)
+        }
+    }
+
+    func receiver(completion: Subscribers.Completion<Swift.Error>) {
+        switch completion {
+            case .failure(let error):
+                delegate?.marvelKitController(self, didReceiveError: error)
+            case .finished:
+                delegate?.marvelKitController(self, didReceiveError: MarvelKit.Error(message: "No data received.", code: "NoData"))
         }
     }
 

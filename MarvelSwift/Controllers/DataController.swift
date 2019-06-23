@@ -29,7 +29,8 @@ class DataController {
 extension DataController: MarvelKitControllerDelegate {
 
     func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveAttribution attribution: String) {
-        //
+        // TODO: Implement
+        print(attribution)
     }
 
     func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveComics comics: [MarvelKit.Comic]) {
@@ -40,11 +41,15 @@ extension DataController: MarvelKitControllerDelegate {
     }
 
     func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveSeries series: [MarvelKit.Series]) {
-        //
+        coreDataController.persistentContainer.performBackgroundTask { backgroundContext in
+            SeriesEntity.updateOrInsert(with: series, into: backgroundContext)
+            backgroundContext.saveChanges()
+        }
     }
 
     func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveError error: Swift.Error) {
-        //
+        // TODO: Implement
+        print(error.localizedDescription)
     }
 
 }
