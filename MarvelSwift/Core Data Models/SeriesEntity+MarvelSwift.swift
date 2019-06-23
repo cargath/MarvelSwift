@@ -25,24 +25,21 @@ extension SeriesEntity {
 
 extension SeriesEntity {
 
-    @discardableResult static func updateOrInsert(with resource: MarvelKit.SeriesSummary, into context: NSManagedObjectContext) -> SeriesEntity? {
+    @discardableResult
+    static func updateOrInsert(with resource: MarvelKit.SeriesSummary, into context: NSManagedObjectContext) throws -> SeriesEntity {
 
         guard let resourceIdentifier = resource.id else {
-            print("[ERROR] Can't insert entity without valid resource id!")
-            return nil
+            throw MarvelSwiftError.missingUniqueIdentifier(message: "Can't insert entity without valid resource id.")
         }
 
-        guard let series = context.fetchOrInsert(SeriesEntity.fetchRequest(uniqueIdentifier: Int64(resourceIdentifier))) else {
-            print("[ERROR] Unable to fetch or insert entity!")
-            return nil
-        }
-
+        let series = try context.fetchOrInsert(SeriesEntity.fetchRequest(uniqueIdentifier: Int64(resourceIdentifier)))
         series.uniqueIdentifier = Int64(resourceIdentifier)
         series.update(with: resource)
         return series
     }
 
-    @discardableResult func update(with resource: MarvelKit.SeriesSummary) -> SeriesEntity {
+    @discardableResult
+    func update(with resource: MarvelKit.SeriesSummary) -> SeriesEntity {
 
         if let name = resource.name {
             self.title = name
@@ -57,28 +54,28 @@ extension SeriesEntity {
 
 extension SeriesEntity {
 
-    @discardableResult static func updateOrInsert(with resources: [MarvelKit.Series], into context: NSManagedObjectContext) -> [SeriesEntity] {
-        return resources.compactMap { updateOrInsert(with: $0, into: context) }
+    @discardableResult
+    static func updateOrInsert(with resources: [MarvelKit.Series], into context: NSManagedObjectContext) throws -> [SeriesEntity] {
+        return try resources.compactMap {
+            try updateOrInsert(with: $0, into: context)
+        }
     }
 
-    @discardableResult static func updateOrInsert(with resource: MarvelKit.Series, into context: NSManagedObjectContext) -> SeriesEntity? {
+    @discardableResult
+    static func updateOrInsert(with resource: MarvelKit.Series, into context: NSManagedObjectContext) throws -> SeriesEntity {
 
         guard let resourceIdentifier = resource.id else {
-            print("[ERROR] Can't insert entity without valid resource id!")
-            return nil
+            throw MarvelSwiftError.missingUniqueIdentifier(message: "Can't insert entity without valid resource id.")
         }
 
-        guard let series = context.fetchOrInsert(SeriesEntity.fetchRequest(uniqueIdentifier: Int64(resourceIdentifier))) else {
-            print("[ERROR] Unable to fetch or insert entity!")
-            return nil
-        }
-
+        let series = try context.fetchOrInsert(SeriesEntity.fetchRequest(uniqueIdentifier: Int64(resourceIdentifier)))
         series.uniqueIdentifier = Int64(resourceIdentifier)
         series.update(with: resource)
         return series
     }
 
-    @discardableResult func update(with resource: MarvelKit.Series) -> SeriesEntity {
+    @discardableResult
+    func update(with resource: MarvelKit.Series) -> SeriesEntity {
 
         if let name = resource.title {
             self.title = name

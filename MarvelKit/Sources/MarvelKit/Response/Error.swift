@@ -35,14 +35,4 @@ extension Error: LocalizedError {
         return code
     }
 
-    /// A localized message describing how one might recover from the failure.
-    public var recoverySuggestion: String? {
-        return "no recovery suggestion"
-    }
-
-    /// A localized message providing "help" text if the user requests help.
-    public var helpAnchor: String? {
-        return "no help available"
-    }
-
 }

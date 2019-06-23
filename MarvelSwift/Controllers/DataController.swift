@@ -35,15 +35,23 @@ extension DataController: MarvelKitControllerDelegate {
 
     func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveComics comics: [MarvelKit.Comic]) {
         coreDataController.persistentContainer.performBackgroundTask { backgroundContext in
-            ComicEntity.updateOrInsert(with: comics, into: backgroundContext)
-            backgroundContext.saveChanges()
+            do {
+                try ComicEntity.updateOrInsert(with: comics, into: backgroundContext)
+                try backgroundContext.saveChanges()
+            } catch {
+                print("\(error.localizedDescription)")
+            }
         }
     }
 
     func marvelKitController(_ marvelKitController: MarvelKitController, didReceiveSeries series: [MarvelKit.Series]) {
         coreDataController.persistentContainer.performBackgroundTask { backgroundContext in
-            SeriesEntity.updateOrInsert(with: series, into: backgroundContext)
-            backgroundContext.saveChanges()
+            do {
+                try SeriesEntity.updateOrInsert(with: series, into: backgroundContext)
+                try backgroundContext.saveChanges()
+            } catch {
+                print("\(error.localizedDescription)")
+            }
         }
     }
 
