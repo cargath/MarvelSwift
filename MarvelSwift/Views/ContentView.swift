@@ -39,30 +39,23 @@ struct ComicsView: View {
 
 struct SeriesItemView: View {
 
-    var body: some View {
-        Text("Captain Marvel (2019)")
-    }
-
-}
-
-struct SeriesSectionView: View {
+    // TODO: @ObjectBinding doesn't compile, but seems like a better choice here?
+    @State var series: SeriesEntity
 
     var body: some View {
-        Section(header: Text("Section")) {
-            ForEach(0 ... 6) { _ in
-                SeriesItemView()
-            }
-        }
+        Text("\(series.title ?? "nil")")
     }
 
 }
 
 struct SeriesView: View {
 
+    @ObjectBinding var viewModel: FetchedObjectsViewModel<SeriesEntity>
+
     var body: some View {
         List {
-            ForEach(0 ... 3) { _ in
-                SeriesSectionView()
+            ForEach(viewModel.fetchedObjects.identified(by: \.uniqueIdentifier)) { series in
+                SeriesItemView(series: series)
             }
         }
     }
@@ -102,7 +95,7 @@ struct SubscriptionsView: View {
 
     var body: some View {
         NavigationView {
-            SeriesView()
+            SeriesView(viewModel: DataController.shared.subscriptionsViewModel())
                 .navigationBarTitle(Text("Subscriptions"))
         }
     }

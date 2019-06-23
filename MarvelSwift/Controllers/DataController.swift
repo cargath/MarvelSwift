@@ -64,6 +64,10 @@ extension DataController {
         return FetchedObjectsViewModel(fetchedResultsController: coreDataController.fetchedPullListController())
     }
 
+    func subscriptionsViewModel() -> FetchedObjectsViewModel<SeriesEntity> {
+        return FetchedObjectsViewModel(fetchedResultsController: coreDataController.fetchedSubscriptionsController())
+    }
+
 }
 
 extension DataController {

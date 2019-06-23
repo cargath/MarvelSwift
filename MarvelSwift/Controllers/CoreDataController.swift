@@ -89,4 +89,13 @@ class CoreDataController {
         )
     }
 
+    func fetchedSubscriptionsController() -> NSFetchedResultsController<SeriesEntity> {
+        return NSFetchedResultsController(
+            fetchRequest: SeriesEntity.fetchRequest().unsorted(),
+            managedObjectContext: persistentContainer.viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+    }
+
 }
