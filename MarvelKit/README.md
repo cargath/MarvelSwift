@@ -16,7 +16,7 @@ TODO
 ## TODOs
 
 - Lowercase enum cases
-- Add Combine publishers
+- Rename Error type?
 - Add ability to get raw Dictionaries, for NSBatchInsertRequest compatibility 
 
 ## Attribution
