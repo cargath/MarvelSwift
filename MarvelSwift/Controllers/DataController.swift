@@ -37,7 +37,7 @@ extension DataController: MarvelKitControllerDelegate {
         coreDataController.persistentContainer.performBackgroundTask { backgroundContext in
             do {
                 try ComicEntity.updateOrInsert(with: comics, into: backgroundContext)
-                try backgroundContext.saveChanges()
+                backgroundContext.saveChangesOrRollback()
             } catch {
                 print("\(error.localizedDescription)")
             }
@@ -48,7 +48,7 @@ extension DataController: MarvelKitControllerDelegate {
         coreDataController.persistentContainer.performBackgroundTask { backgroundContext in
             do {
                 try SeriesEntity.updateOrInsert(with: series, into: backgroundContext)
-                try backgroundContext.saveChanges()
+                backgroundContext.saveChangesOrRollback()
             } catch {
                 print("\(error.localizedDescription)")
             }

@@ -14,7 +14,32 @@ extension ComicEntity {
 
     static func fetchRequest(uniqueIdentifier: Int64) -> NSFetchRequest<ComicEntity> {
         // Should return only one object and therefore doesn't require sorting
-        return fetchRequest(key: "uniqueIdentifier", int: uniqueIdentifier).unsorted()
+        return fetchRequest().with(key: "uniqueIdentifier", int64: uniqueIdentifier).unsorted()
+    }
+
+}
+
+extension ComicEntity {
+
+    static func allFetchRequest() -> NSFetchRequest<ComicEntity> {
+        return fetchRequest().sorted(by: [
+            NSSortDescriptor(ascending: "releaseDate"),
+            NSSortDescriptor(ascending: "title")
+        ])
+    }
+
+    static func solicitsFetchRequest() -> NSFetchRequest<ComicEntity> {
+        return fetchRequest().with(format: "isPulled == false && series.isPulled == false").sorted(by: [
+            NSSortDescriptor(ascending: "releaseDate"),
+            NSSortDescriptor(ascending: "title")
+        ])
+    }
+
+    static func pullsFetchRequest() -> NSFetchRequest<ComicEntity> {
+        return fetchRequest().with(format: "isPulled == true || series.isPulled == true").sorted(by: [
+            NSSortDescriptor(ascending: "releaseDate"),
+            NSSortDescriptor(ascending: "title")
+        ])
     }
 
 }

@@ -21,7 +21,7 @@
     </entity>
     <entity name="SeriesEntity" representedClassName="SeriesEntity" syncable="YES" codeGenerationType="class">
         <attribute name="endYear" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="isPulled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isPulled" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="startYear" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="thumbnailURLString" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>

@@ -10,9 +10,23 @@ import CoreData
 
 extension NSManagedObjectContext {
 
-    func saveChanges() throws {
+    @discardableResult
+    func saveChanges() throws -> Bool {
         if hasChanges {
             try save()
+            return true
+        } else {
+            return false
+        }
+    }
+
+    @discardableResult
+    func saveChangesOrRollback() -> Bool {
+        do {
+            return try saveChanges()
+        } catch {
+            rollback()
+            return false
         }
     }
 

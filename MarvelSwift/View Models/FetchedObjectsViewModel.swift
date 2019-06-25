@@ -10,38 +10,39 @@ import Combine
 import CoreData
 import SwiftUI
 
-class FetchedObjectsViewModel<ResultType>: NSObject, NSFetchedResultsControllerDelegate, BindableObject where ResultType: NSFetchRequestResult {
+class FetchedObjectsViewModel<ResultType>: NSObject, BindableObject, NSFetchedResultsControllerDelegate where ResultType: NSFetchRequestResult {
 
-    var didChange = PassthroughSubject<Void, Never>()
-
-    var fetchedResultsController: NSFetchedResultsController<ResultType> {
-        didSet {
-            configure(with: fetchedResultsController)
-        }
-    }
+    private let fetchedResultsController: NSFetchedResultsController<ResultType>
 
     var fetchedObjects: [ResultType] {
         return fetchedResultsController.fetchedObjects ?? []
     }
 
+    var errorDescription: String?
+
+    // MARK: BindableObject
+    var didChange = PassthroughSubject<Void, Never>()
+
     init(fetchedResultsController: NSFetchedResultsController<ResultType>) {
         self.fetchedResultsController = fetchedResultsController
-        // Because NSObject
+        // Should be called from subclasses of NSObject.
         super.init()
-        // Because didSet doesn't get called from initializers
+        // Configure the view model to receive updates from Core Data.
         configure(with: self.fetchedResultsController)
     }
 
     func configure(with fetchedResultsController: NSFetchedResultsController<ResultType>) {
         fetchedResultsController.delegate = self
-        // TODO: Improve error handling
+        // Load initial set of data.
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            print("FOOBAR: \(error.localizedDescription)")
+            // In case we want to present the error to the user.
+            errorDescription = error.localizedDescription
         }
     }
 
+    // MARK: NSFetchedResultsControllerDelegate
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         didChange.send()
     }

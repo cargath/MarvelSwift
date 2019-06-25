@@ -16,7 +16,7 @@ extension SeriesEntity {
 
     static func fetchRequest(uniqueIdentifier: Int64) -> NSFetchRequest<SeriesEntity> {
         // Should return only one object and therefore doesn't require sorting
-        return fetchRequest(key: "uniqueIdentifier", int: uniqueIdentifier).unsorted()
+        return fetchRequest().with(key: "uniqueIdentifier", int64: uniqueIdentifier).unsorted()
     }
 
 }

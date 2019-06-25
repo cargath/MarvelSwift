@@ -12,11 +12,18 @@ import SwiftUI
 
 struct ComicsItemView: View {
 
-    // TODO: @ObjectBinding doesn't compile, but seems like a better choice here?
-    @State var comic: ComicEntity
+    @ObjectBinding var viewModel: ManagedObjectViewModel<ComicEntity>
 
     var body: some View {
-        Text("\(comic.title ?? "nil")")
+        Button(action: buttonTap) {
+            Text("\(viewModel.title ?? "nil")")
+                .lineLimit(.max)
+                .truncationMode(.tail)
+        }
+    }
+
+    func buttonTap() {
+        viewModel.isPulled.toggle()
     }
 
 }
@@ -28,7 +35,7 @@ struct ComicsView: View {
     var body: some View {
         List {
             ForEach(viewModel.fetchedObjects.identified(by: \.uniqueIdentifier)) { comic in
-                ComicsItemView(comic: comic)
+                ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
             }
         }
     }
@@ -39,11 +46,12 @@ struct ComicsView: View {
 
 struct SeriesItemView: View {
 
-    // TODO: @ObjectBinding doesn't compile, but seems like a better choice here?
-    @State var series: SeriesEntity
+    @ObjectBinding var viewModel: ManagedObjectViewModel<SeriesEntity>
 
     var body: some View {
-        Text("\(series.title ?? "nil")")
+        Text("\(viewModel.title ?? "nil")")
+            .lineLimit(.max)
+            .truncationMode(.tail)
     }
 
 }
@@ -55,7 +63,7 @@ struct SeriesView: View {
     var body: some View {
         List {
             ForEach(viewModel.fetchedObjects.identified(by: \.uniqueIdentifier)) { series in
-                SeriesItemView(series: series)
+                SeriesItemView(viewModel: ManagedObjectViewModel(managedObject: series))
             }
         }
     }

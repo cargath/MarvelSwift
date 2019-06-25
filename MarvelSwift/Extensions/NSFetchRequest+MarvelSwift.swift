@@ -10,9 +10,29 @@ import CoreData
 
 extension NSFetchRequest {
 
-    @objc func with(_ predicate: NSPredicate?) -> Self {
+    @objc func with(predicate: NSPredicate) -> Self {
         self.predicate = predicate
         return self
+    }
+
+    @objc func with(format: String) -> Self {
+        return with(predicate: NSPredicate(format: format))
+    }
+
+    @objc func with(key: String, bool value: Bool) -> Self {
+        return with(predicate: NSPredicate(format: "\(key) == %@", NSNumber(booleanLiteral: value)))
+    }
+
+    @objc func with(key: String, int value: Int) -> Self {
+        return with(predicate: NSPredicate(format: "\(key) == %@", NSNumber(integerLiteral: value)))
+    }
+
+    @objc func with(key: String, int64 value: Int64) -> Self {
+        return with(predicate: NSPredicate(format: "\(key) == %@", NSNumber(value: value)))
+    }
+
+    @objc func with(key: String, string value: String) -> Self {
+        return with(predicate: NSPredicate(format: "\(key) == '\(value)'"))
     }
 
     @objc func fetchBatchSize(_ fetchBatchSize: Int) -> Self {

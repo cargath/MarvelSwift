@@ -51,11 +51,15 @@ class CoreDataController {
         return container
     }()
 
+}
+
+extension CoreDataController {
+
     // MARK: - FetchedResultsController factory methods
 
     func fetchedSolicitationsController() -> NSFetchedResultsController<ComicEntity> {
         return NSFetchedResultsController(
-            fetchRequest: ComicEntity.fetchRequest().unsorted(),
+            fetchRequest: ComicEntity.solicitsFetchRequest(),
             managedObjectContext: persistentContainer.viewContext,
             sectionNameKeyPath: nil,
             cacheName: nil
@@ -64,7 +68,7 @@ class CoreDataController {
 
     func fetchedPullListController() -> NSFetchedResultsController<ComicEntity> {
         return NSFetchedResultsController(
-            fetchRequest: ComicEntity.fetchRequest().unsorted(),
+            fetchRequest: ComicEntity.pullsFetchRequest(),
             managedObjectContext: persistentContainer.viewContext,
             sectionNameKeyPath: nil,
             cacheName: nil
