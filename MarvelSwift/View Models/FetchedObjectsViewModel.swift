@@ -10,7 +10,7 @@ import Combine
 import CoreData
 import SwiftUI
 
-class FetchedObjectsViewModel<ResultType>: NSObject, BindableObject, NSFetchedResultsControllerDelegate where ResultType: NSFetchRequestResult {
+class FetchedObjectsViewModel<ResultType>: NSObject, NSFetchedResultsControllerDelegate, BindableObject where ResultType: NSFetchRequestResult {
 
     private let fetchedResultsController: NSFetchedResultsController<ResultType>
 

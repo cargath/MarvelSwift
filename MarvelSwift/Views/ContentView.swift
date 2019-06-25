@@ -34,7 +34,7 @@ struct ComicsView: View {
 
     var body: some View {
         List {
-            ForEach(viewModel.fetchedObjects.identified(by: \.uniqueIdentifier)) { comic in
+            ForEach(viewModel.fetchedObjects.identified(by: \.objectID)) { comic in
                 ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
             }
         }
@@ -62,7 +62,7 @@ struct SeriesView: View {
 
     var body: some View {
         List {
-            ForEach(viewModel.fetchedObjects.identified(by: \.uniqueIdentifier)) { series in
+            ForEach(viewModel.fetchedObjects.identified(by: \.objectID)) { series in
                 SeriesItemView(viewModel: ManagedObjectViewModel(managedObject: series))
             }
         }
