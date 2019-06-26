@@ -59,3 +59,11 @@ extension NSManagedObjectContext {
     }
 
 }
+
+extension NSManagedObjectContext {
+
+    func objectsDidChangePublisher(notificationCenter: NotificationCenter = .default) -> NotificationCenter.Publisher {
+        return notificationCenter.publisher(for: .NSManagedObjectContextObjectsDidChange, object: self)
+    }
+
+}

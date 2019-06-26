@@ -31,7 +31,7 @@ class FetchedObjectsViewModel<ResultType>: NSObject, NSFetchedResultsControllerD
         configure(with: self.fetchedResultsController)
     }
 
-    func configure(with fetchedResultsController: NSFetchedResultsController<ResultType>) {
+    private func configure(with fetchedResultsController: NSFetchedResultsController<ResultType>) {
         fetchedResultsController.delegate = self
         // Load initial set of data.
         do {

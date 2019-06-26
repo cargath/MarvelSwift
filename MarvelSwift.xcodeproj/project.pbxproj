@@ -28,8 +28,9 @@
 		AD73EC6722BC05B400F0C27B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD73EC6522BC05B400F0C27B /* LaunchScreen.storyboard */; };
 		AD73EC7222BC05B400F0C27B /* MarvelSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD73EC7122BC05B400F0C27B /* MarvelSwiftTests.swift */; };
 		AD80BE4422C1449B0022721E /* ManagedObjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD80BE4322C1449B0022721E /* ManagedObjectViewModel.swift */; };
-		ADA9371A22C178BE00607569 /* ObjectsDidChangeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA9371922C178BE00607569 /* ObjectsDidChangeNotification.swift */; };
 		ADA9371C22C17A7200607569 /* NSSortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA9371B22C17A7200607569 /* NSSortDescriptor.swift */; };
+		ADAAAA0A22C3C98800AECEF6 /* Notification+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAAA0922C3C98800AECEF6 /* Notification+MarvelSwift.swift */; };
+		ADAAAA0C22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */; };
 		ADDA209622BFE18A005DBF87 /* MarvelSwiftError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDA209522BFE18A005DBF87 /* MarvelSwiftError.swift */; };
 		ADE6F94C22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE6F94B22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift */; };
 /* End PBXBuildFile section */
@@ -70,8 +71,9 @@
 		AD73EC7122BC05B400F0C27B /* MarvelSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelSwiftTests.swift; sourceTree = "<group>"; };
 		AD73EC7322BC05B400F0C27B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD80BE4322C1449B0022721E /* ManagedObjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectViewModel.swift; sourceTree = "<group>"; };
-		ADA9371922C178BE00607569 /* ObjectsDidChangeNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsDidChangeNotification.swift; sourceTree = "<group>"; };
 		ADA9371B22C17A7200607569 /* NSSortDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSortDescriptor.swift; sourceTree = "<group>"; };
+		ADAAAA0922C3C98800AECEF6 /* Notification+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+MarvelSwift.swift"; sourceTree = "<group>"; };
+		ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+MarvelSwift.swift"; sourceTree = "<group>"; };
 		ADDA209522BFE18A005DBF87 /* MarvelSwiftError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelSwiftError.swift; sourceTree = "<group>"; };
 		ADE6F94B22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+MarvelSwift.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				ADDA209522BFE18A005DBF87 /* MarvelSwiftError.swift */,
-				ADA9371922C178BE00607569 /* ObjectsDidChangeNotification.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -218,7 +219,9 @@
 			isa = PBXGroup;
 			children = (
 				AD2D49FC22BF0B1800E8A3E2 /* Array+MarvelSwift.swift */,
+				ADAAAA0922C3C98800AECEF6 /* Notification+MarvelSwift.swift */,
 				ADE6F94B22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift */,
+				ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */,
 				AD2D49FA22BF01CF00E8A3E2 /* NSManagedObjectContext+MarvelSwift.swift */,
 				ADA9371B22C17A7200607569 /* NSSortDescriptor.swift */,
 				AD2D49F622BF007C00E8A3E2 /* String+MarvelSwift.swift */,
@@ -360,7 +363,7 @@
 				AD2D49F522BEFFED00E8A3E2 /* SeriesEntity+MarvelSwift.swift in Sources */,
 				AD80BE4422C1449B0022721E /* ManagedObjectViewModel.swift in Sources */,
 				ADDA209622BFE18A005DBF87 /* MarvelSwiftError.swift in Sources */,
-				ADA9371A22C178BE00607569 /* ObjectsDidChangeNotification.swift in Sources */,
+				ADAAAA0A22C3C98800AECEF6 /* Notification+MarvelSwift.swift in Sources */,
 				AD1024A822BD43BA00B4647D /* SearchBar.swift in Sources */,
 				AD1024B822BE65DF00B4647D /* DataController.swift in Sources */,
 				AD1024C722BE6A4300B4647D /* FetchedObjectsViewModel.swift in Sources */,
@@ -370,6 +373,7 @@
 				AD2D49FB22BF01CF00E8A3E2 /* NSManagedObjectContext+MarvelSwift.swift in Sources */,
 				AD2D49F722BF007C00E8A3E2 /* String+MarvelSwift.swift in Sources */,
 				AD1024B422BE4E0F00B4647D /* LocalConfig.swift in Sources */,
+				ADAAAA0C22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift in Sources */,
 				AD2D49F322BEFFD900E8A3E2 /* ComicEntity+MarvelSwift.swift in Sources */,
 				ADA9371C22C17A7200607569 /* NSSortDescriptor.swift in Sources */,
 			);

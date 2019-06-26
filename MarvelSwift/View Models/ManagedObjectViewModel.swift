@@ -10,14 +10,6 @@ import Combine
 import CoreData
 import SwiftUI
 
-extension NSManagedObjectContext {
-
-    func objectsDidChangePublisher(notificationCenter: NotificationCenter = .default) -> NotificationCenter.Publisher {
-        return notificationCenter.publisher(for: .NSManagedObjectContextObjectsDidChange, object: self)
-    }
-
-}
-
 extension Cancellable {
 
     func eraseToAnyCancellable() -> AnyCancellable {
@@ -42,35 +34,14 @@ class ManagedObjectViewModel<ResultType>: BindableObject where ResultType: NSMan
         self.managedObject = managedObject
         self.autoSaves = autoSaves
         if autoUpdates {
-            configure(with: managedObject)
+            cancellable = managedObject
+                .objectDidChangePublisher()?
+                .sink(receiveValue: handle(objectDidChangeNotification:))
+                .eraseToAnyCancellable()
         }
     }
 
-    func configure(with managedObject: ResultType) {
-        if let managedObjectContext = managedObject.managedObjectContext {
-            configure(with: managedObject, in: managedObjectContext)
-        } else {
-            fatalError("Cannot observe a managed object without a valid context!")
-        }
-    }
-
-    func configure(with managedObject: ResultType, in managedObjectContext: NSManagedObjectContext) {
-        cancellable = managedObjectContext
-            .objectsDidChangePublisher()
-            .map(ObjectsDidChangeNotification.init)
-            .tryMap { notification in
-                if notification.didDelete(object: managedObject) {
-                    throw MarvelSwiftError.observationFailure(message: "Object has been deleted during observation. Cancelling observation.")
-                } else {
-                    return notification
-                }
-            }
-            .filter { $0.didUpdate(object: managedObject) }
-            .sink(receiveValue: receiver(value:))
-            .eraseToAnyCancellable()
-    }
-
-    func receiver(value: ObjectsDidChangeNotification) {
+    private func handle(objectDidChangeNotification: Notification) {
         didChange.send()
     }
 

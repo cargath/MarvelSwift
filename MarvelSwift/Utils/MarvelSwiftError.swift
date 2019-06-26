@@ -14,7 +14,7 @@ enum MarvelSwiftError {
     case missingObject(message: String)
     case missingUniqueIdentifier(message: String)
     case multipleObjects(message: String)
-    case observationFailure(message: String)
+    case objectDeleted(message: String)
 
 }
 
@@ -31,7 +31,7 @@ extension MarvelSwiftError: LocalizedError {
                 return message
             case let .multipleObjects(message):
                 return message
-            case let .observationFailure(message):
+            case let .objectDeleted(message):
                 return message
         }
     }
@@ -47,8 +47,8 @@ extension MarvelSwiftError: LocalizedError {
                 return "Unable to insert or fetch an object without a unique identifier."
             case .multipleObjects:
                 return "Found multiple objects matching the description in managed object context. Should be unique."
-            case .observationFailure:
-                return "The observed object has become invalid or has been deleted."
+            case .objectDeleted:
+                return "The object has become invalid or has been deleted."
         }
     }
 
