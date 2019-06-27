@@ -12,13 +12,13 @@ class URLImageController {
 
     static let shared: URLImageController = .init()
 
-    private var cache: NSCache<NSURL, UIImage> = .init()
+    private var cache: Cache<NSURL, UIImage> = .init()
 
     private var completionHandlers: [URL: [(URLImage) -> Void]] = [:]
 
     func getImage(with url: URL, completionHandler: @escaping (URLImage) -> Void) {
 
-        if let image = cache.object(forKey: url as NSURL) {
+        if let image = cache[url] {
             completionHandler(.remote(image))
             return
         }
@@ -32,7 +32,7 @@ class URLImageController {
 
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             if let data = data, let image = UIImage(data: data) {
-                self?.cache.setObject(image, forKey: url as NSURL)
+                self?.cache[url] = image
                 self?.didReceive(.remote(image), for: url, with: completionHandler)
             } else {
                 self?.didReceive(.unavailable, for: url, with: completionHandler)
