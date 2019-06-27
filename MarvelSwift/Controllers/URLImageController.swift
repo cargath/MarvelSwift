@@ -12,9 +12,9 @@ class URLImageController {
 
     static let shared: URLImageController = .init()
 
-    private var cache: Cache<NSURL, UIImage> = .init()
+    private let cache: Cache<NSURL, UIImage> = .init()
 
-    private var completionHandlers: [URL: [(URLImage) -> Void]] = [:]
+    private let broadcast: Broadcast<URL, URLImage> = .init()
 
     func getImage(with url: URL, completionHandler: @escaping (URLImage) -> Void) {
 
@@ -23,37 +23,26 @@ class URLImageController {
             return
         }
 
-        if completionHandlers.keys.contains(url) {
-            completionHandlers[url]?.append(completionHandler)
+        if !broadcast.add(subscriber: completionHandler, for: url) {
             return
         }
-
-        completionHandlers[url] = [completionHandler]
 
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             if let data = data, let image = UIImage(data: data) {
                 self?.cache[url] = image
-                self?.didReceive(.remote(image), for: url, with: completionHandler)
+                // Call the given completion handler if the broadcast fails.
+                if !(self?.broadcast.send(value: .remote(image), for: url) ?? false) {
+                    completionHandler(.remote(image))
+                }
             } else {
-                self?.didReceive(.unavailable, for: url, with: completionHandler)
+                // Call the given completion handler if the broadcast fails.
+                if !(self?.broadcast.send(value: .unavailable, for: url) ?? false) {
+                    completionHandler(.unavailable)
+                }
             }
         }
 
         task.resume()
-    }
-
-    private func didReceive(_ image: URLImage, for url: URL, with completionHandler: @escaping (URLImage) -> Void) {
-
-        guard let completionHandlers = self.completionHandlers[url] else {
-            completionHandler(image)
-            return
-        }
-
-        self.completionHandlers.removeValue(forKey: url)
-
-        for completionHandler in completionHandlers {
-            completionHandler(image)
-        }
     }
 
 }

@@ -15,6 +15,7 @@
 		AD1024B822BE65DF00B4647D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1024B722BE65DF00B4647D /* DataController.swift */; };
 		AD1024C722BE6A4300B4647D /* FetchedObjectsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1024C622BE6A4300B4647D /* FetchedObjectsViewModel.swift */; };
 		AD1CAC2922C52592000F062F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CAC2822C52592000F062F /* Cache.swift */; };
+		AD1CAC2B22C52B87000F062F /* Broadcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CAC2A22C52B87000F062F /* Broadcast.swift */; };
 		AD2D49F322BEFFD900E8A3E2 /* ComicEntity+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2D49F222BEFFD900E8A3E2 /* ComicEntity+MarvelSwift.swift */; };
 		AD2D49F522BEFFED00E8A3E2 /* SeriesEntity+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2D49F422BEFFED00E8A3E2 /* SeriesEntity+MarvelSwift.swift */; };
 		AD2D49F722BF007C00E8A3E2 /* String+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2D49F622BF007C00E8A3E2 /* String+MarvelSwift.swift */; };
@@ -60,6 +61,7 @@
 		AD1024B722BE65DF00B4647D /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		AD1024C622BE6A4300B4647D /* FetchedObjectsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedObjectsViewModel.swift; sourceTree = "<group>"; };
 		AD1CAC2822C52592000F062F /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		AD1CAC2A22C52B87000F062F /* Broadcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Broadcast.swift; sourceTree = "<group>"; };
 		AD2D49F222BEFFD900E8A3E2 /* ComicEntity+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComicEntity+MarvelSwift.swift"; sourceTree = "<group>"; };
 		AD2D49F422BEFFED00E8A3E2 /* SeriesEntity+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SeriesEntity+MarvelSwift.swift"; sourceTree = "<group>"; };
 		AD2D49F622BF007C00E8A3E2 /* String+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MarvelSwift.swift"; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 		ADDA209422BFE171005DBF87 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				AD1CAC2A22C52B87000F062F /* Broadcast.swift */,
 				AD1CAC2822C52592000F062F /* Cache.swift */,
 				ADDA209522BFE18A005DBF87 /* MarvelSwiftError.swift */,
 				ADF23DC422C44685007E351A /* URLImage.swift */,
@@ -390,6 +393,7 @@
 				AD1024B822BE65DF00B4647D /* DataController.swift in Sources */,
 				AD1024C722BE6A4300B4647D /* FetchedObjectsViewModel.swift in Sources */,
 				AD73EC5F22BC05B200F0C27B /* ContentView.swift in Sources */,
+				AD1CAC2B22C52B87000F062F /* Broadcast.swift in Sources */,
 				AD73EC5A22BC05B200F0C27B /* SceneDelegate.swift in Sources */,
 				ADF23DC122C44621007E351A /* URLImageViewModel.swift in Sources */,
 				AD1024B222BE49FA00B4647D /* MarvelKitController.swift in Sources */,
