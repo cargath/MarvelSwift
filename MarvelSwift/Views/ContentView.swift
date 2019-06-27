@@ -49,22 +49,29 @@ struct ComicsItemView: View {
 
 }
 
+struct ComicsSectionView: View {
+
+    @State var sectionInfo: SectionInfo<ComicEntity>
+
+    var body: some View {
+        Section(header: Text(sectionInfo.name)) {
+            ForEach(self.sectionInfo.objects.identified(by: \.objectID)) { comic in
+                ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
+            }
+        }
+    }
+
+}
+
 struct ComicsView: View {
 
     @ObjectBinding var viewModel: FetchedObjectsViewModel<ComicEntity>
 
     var body: some View {
         List {
-            ForEach(viewModel.sections.identified(by: \.name)) { section in
-                Section(header: Text(section.name)) {
-                    ForEach(self.viewModel.objects(section: section).identified(by: \.objectID)) { (comic: ComicEntity) in
-                        ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
-                    }
-                }
+            ForEach(viewModel.sections.identified(by: \.name)) { sectionInfo in
+                ComicsSectionView(sectionInfo: sectionInfo)
             }
-//            ForEach(viewModel.fetchedObjects.identified(by: \.objectID)) { comic in
-//                ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
-//            }
         }
     }
 

@@ -12,8 +12,9 @@ import SwiftUI
 
 extension Cancellable {
 
+    /// Returns a type-erased version of the cancellable.
     func eraseToAnyCancellable() -> AnyCancellable {
-        return AnyCancellable(self)
+        AnyCancellable(self)
     }
 
 }

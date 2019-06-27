@@ -10,6 +10,40 @@ import Combine
 import CoreData
 import SwiftUI
 
+// MARK: - SectionInfo
+
+struct SectionInfo<ResultType> where ResultType: NSFetchRequestResult {
+
+    private let sectionInfo: NSFetchedResultsSectionInfo
+
+    init(sectionInfo: NSFetchedResultsSectionInfo) {
+        self.sectionInfo = sectionInfo
+    }
+
+    /// Name of the section.
+    var name: String {
+        sectionInfo.name
+    }
+
+    /// Title of the section (used when displaying the index).
+    var indexTitle: String? {
+        sectionInfo.indexTitle
+    }
+
+    /// Number of objects in section.
+    var numberOfObjects: Int {
+        sectionInfo.numberOfObjects
+    }
+
+    /// Returns the array of objects in the section.
+    var objects: [ResultType] {
+        (sectionInfo.objects as? [ResultType]) ?? []
+    }
+
+}
+
+// MARK: - FetchedObjectsViewModel
+
 class FetchedObjectsViewModel<ResultType>: NSObject, NSFetchedResultsControllerDelegate, BindableObject where ResultType: NSFetchRequestResult {
 
     private let fetchedResultsController: NSFetchedResultsController<ResultType>
@@ -18,12 +52,8 @@ class FetchedObjectsViewModel<ResultType>: NSObject, NSFetchedResultsControllerD
         fetchedResultsController.fetchedObjects ?? []
     }
 
-    var sections: [NSFetchedResultsSectionInfo] {
-        fetchedResultsController.sections ?? []
-    }
-
-    func objects(section: NSFetchedResultsSectionInfo) -> [ResultType] {
-        (section.objects as? [ResultType]) ?? []
+    var sections: [SectionInfo<ResultType>] {
+        fetchedResultsController.sections?.map(SectionInfo.init) ?? []
     }
 
     var errorDescription: String?
