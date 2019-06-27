@@ -11,7 +11,8 @@ import UIKit
 enum URLImage {
 
     case placeholder
-    case remote(_ image: UIImage)
     case unavailable
+    case remote(_ image: UIImage)
+    case cached(_ image: UIImage)
 
 }

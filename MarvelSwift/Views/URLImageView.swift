@@ -25,10 +25,12 @@ struct URLImageView: View {
         switch viewModel.image {
             case .placeholder:
                 return placeholder().eraseToAnyView()
-            case let .remote(image):
-                return remote(uiImage: image).eraseToAnyView()
             case .unavailable:
                 return unavailable().eraseToAnyView()
+            case let .remote(image):
+                return remote(uiImage: image).eraseToAnyView()
+            case let .cached(image):
+                return cached(uiImage: image).eraseToAnyView()
         }
     }
 
@@ -39,16 +41,21 @@ struct URLImageView: View {
         }
     }
 
-    func remote(uiImage: UIImage) -> some View {
-        Image(uiImage: uiImage)
-            .resizable()
-    }
-
     func unavailable() -> some View {
         ZStack {
             Color.gray
             Image(systemName: "xmark.octagon.fill")
         }
+    }
+
+    func remote(uiImage: UIImage) -> some View {
+        Image(uiImage: uiImage)
+            .resizable()
+    }
+
+    func cached(uiImage: UIImage) -> some View {
+        Image(uiImage: uiImage)
+            .resizable()
     }
 
 }

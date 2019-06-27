@@ -6,7 +6,7 @@
 //  Copyright © 2019 cargath. All rights reserved.
 //
 
-class Broadcast<Key, Value> where Key : Hashable {
+class Broadcast<Key, Value> where Key: Hashable {
 
     private var subscribers: [Key: [(Value) -> Void]] = [:]
 

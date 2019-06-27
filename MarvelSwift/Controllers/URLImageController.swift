@@ -19,7 +19,7 @@ class URLImageController {
     func getImage(with url: URL, completionHandler: @escaping (URLImage) -> Void) {
 
         if let image = cache[url] {
-            completionHandler(.remote(image))
+            completionHandler(.cached(image))
             return
         }
 
