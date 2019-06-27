@@ -115,3 +115,31 @@ extension ComicEntity {
     }
 
 }
+
+extension ComicEntity {
+
+    @objc var section: String {
+        return (releaseDate as Date?)?
+            .localizedString(dateStyle: .long)
+            .uppercased() ?? ""
+    }
+
+    var creators: String {
+        return [writer, artist, colorArtist]
+            .compactMap({ $0?.components(separatedBy: " ").last })
+            .joined(separator: ", ")
+    }
+
+    var cleanedTitle: String {
+        return title?
+            .components(separatedBy: "(").first?
+            .condensingWhitespace ?? ""
+    }
+
+    var cleanedText: String {
+        return text?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .condensingWhitespace ?? ""
+    }
+
+}

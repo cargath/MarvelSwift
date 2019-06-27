@@ -10,8 +10,18 @@ import Foundation
 
 extension String {
 
+    var condensingWhitespace: String {
+        components(separatedBy: .whitespaces)
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
+    }
+
+    var localized: String {
+        NSLocalizedString(self, comment: "")
+    }
+
     var url: URL? {
-        return URL(string: replacingOccurrences(of: "http:", with: "https:"))
+        URL(string: replacingOccurrences(of: "http:", with: "https:"))
     }
 
 }

@@ -15,16 +15,37 @@ struct ComicsItemView: View {
     @ObjectBinding var viewModel: ManagedObjectViewModel<ComicEntity>
 
     var body: some View {
-        Button(action: buttonTap) {
-            Text("\(viewModel.title ?? "nil")")
-                .lineLimit(.max)
-                .truncationMode(.tail)
+        HStack {
+            URLImageView(viewModel: URLImageViewModel(url: URL(string: viewModel.thumbnailURLString!)!))
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 100, height: 100)
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .shadow(radius: 4, x: 0, y: 1)
+            VStack(alignment: .leading) {
+                Text("\(viewModel.managedObject.cleanedTitle) (2019) #\(viewModel.issueNumber)")
+                    .font(.headline)
+                    .lineLimit(.max)
+                    .truncationMode(.tail)
+                Text("\(viewModel.managedObject.creators)")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .lineLimit(.max)
+                    .truncationMode(.tail)
+            }
         }
     }
 
-    func buttonTap() {
-        viewModel.isPulled.toggle()
-    }
+//    var body: some View {
+//        Button(action: buttonTap) {
+//            Text("\(viewModel.title ?? "nil")")
+//                .lineLimit(.max)
+//                .truncationMode(.tail)
+//        }
+//    }
+
+//    func buttonTap() {
+//        viewModel.isPulled.toggle()
+//    }
 
 }
 
@@ -34,9 +55,16 @@ struct ComicsView: View {
 
     var body: some View {
         List {
-            ForEach(viewModel.fetchedObjects.identified(by: \.objectID)) { comic in
-                ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
+            ForEach(viewModel.sections.identified(by: \.name)) { section in
+                Section(header: Text(section.name)) {
+                    ForEach(self.viewModel.objects(section: section).identified(by: \.objectID)) { (comic: ComicEntity) in
+                        ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
+                    }
+                }
             }
+//            ForEach(viewModel.fetchedObjects.identified(by: \.objectID)) { comic in
+//                ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
+//            }
         }
     }
 

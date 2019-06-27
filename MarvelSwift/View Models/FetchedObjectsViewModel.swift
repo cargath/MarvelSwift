@@ -15,7 +15,15 @@ class FetchedObjectsViewModel<ResultType>: NSObject, NSFetchedResultsControllerD
     private let fetchedResultsController: NSFetchedResultsController<ResultType>
 
     var fetchedObjects: [ResultType] {
-        return fetchedResultsController.fetchedObjects ?? []
+        fetchedResultsController.fetchedObjects ?? []
+    }
+
+    var sections: [NSFetchedResultsSectionInfo] {
+        fetchedResultsController.sections ?? []
+    }
+
+    func objects(section: NSFetchedResultsSectionInfo) -> [ResultType] {
+        (section.objects as? [ResultType]) ?? []
     }
 
     var errorDescription: String?

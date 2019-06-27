@@ -21,9 +21,9 @@ extension Cancellable {
 @dynamicMemberLookup
 class ManagedObjectViewModel<ResultType>: BindableObject where ResultType: NSManagedObject {
 
-    private let managedObject: ResultType
+    let managedObject: ResultType
 
-    private let autoSaves: Bool
+    let autoSaves: Bool
 
     private var cancellable: AnyCancellable?
 

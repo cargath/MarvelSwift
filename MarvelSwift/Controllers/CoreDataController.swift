@@ -61,7 +61,7 @@ extension CoreDataController {
         return NSFetchedResultsController(
             fetchRequest: ComicEntity.solicitsFetchRequest(),
             managedObjectContext: persistentContainer.viewContext,
-            sectionNameKeyPath: nil,
+            sectionNameKeyPath: "section",
             cacheName: nil
         )
     }
@@ -70,7 +70,7 @@ extension CoreDataController {
         return NSFetchedResultsController(
             fetchRequest: ComicEntity.pullsFetchRequest(),
             managedObjectContext: persistentContainer.viewContext,
-            sectionNameKeyPath: nil,
+            sectionNameKeyPath: "section",
             cacheName: nil
         )
     }

@@ -33,6 +33,11 @@
 		ADAAAA0C22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */; };
 		ADDA209622BFE18A005DBF87 /* MarvelSwiftError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDA209522BFE18A005DBF87 /* MarvelSwiftError.swift */; };
 		ADE6F94C22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE6F94B22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift */; };
+		ADF23DC122C44621007E351A /* URLImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF23DC022C44621007E351A /* URLImageViewModel.swift */; };
+		ADF23DC322C44665007E351A /* URLImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF23DC222C44665007E351A /* URLImageController.swift */; };
+		ADF23DC522C44685007E351A /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF23DC422C44685007E351A /* URLImage.swift */; };
+		ADF23DC722C446AD007E351A /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF23DC622C446AD007E351A /* URLImageView.swift */; };
+		ADF23DC922C44808007E351A /* Date+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF23DC822C44808007E351A /* Date+MarvelSwift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +81,11 @@
 		ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+MarvelSwift.swift"; sourceTree = "<group>"; };
 		ADDA209522BFE18A005DBF87 /* MarvelSwiftError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelSwiftError.swift; sourceTree = "<group>"; };
 		ADE6F94B22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+MarvelSwift.swift"; sourceTree = "<group>"; };
+		ADF23DC022C44621007E351A /* URLImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageViewModel.swift; sourceTree = "<group>"; };
+		ADF23DC222C44665007E351A /* URLImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageController.swift; sourceTree = "<group>"; };
+		ADF23DC422C44685007E351A /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
+		ADF23DC622C446AD007E351A /* URLImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
+		ADF23DC822C44808007E351A /* Date+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+MarvelSwift.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				AD73EC5E22BC05B200F0C27B /* ContentView.swift */,
+				ADF23DC622C446AD007E351A /* URLImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -126,6 +137,7 @@
 				AD1024B522BE5D8800B4647D /* CoreDataController.swift */,
 				AD1024B722BE65DF00B4647D /* DataController.swift */,
 				AD1024B122BE49FA00B4647D /* MarvelKitController.swift */,
+				ADF23DC222C44665007E351A /* URLImageController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -135,6 +147,7 @@
 			children = (
 				AD1024C622BE6A4300B4647D /* FetchedObjectsViewModel.swift */,
 				AD80BE4322C1449B0022721E /* ManagedObjectViewModel.swift */,
+				ADF23DC022C44621007E351A /* URLImageViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -211,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				ADDA209522BFE18A005DBF87 /* MarvelSwiftError.swift */,
+				ADF23DC422C44685007E351A /* URLImage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -219,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				AD2D49FC22BF0B1800E8A3E2 /* Array+MarvelSwift.swift */,
+				ADF23DC822C44808007E351A /* Date+MarvelSwift.swift */,
 				ADAAAA0922C3C98800AECEF6 /* Notification+MarvelSwift.swift */,
 				ADE6F94B22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift */,
 				ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */,
@@ -358,19 +373,24 @@
 				ADE6F94C22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift in Sources */,
 				AD73EC5822BC05B200F0C27B /* AppDelegate.swift in Sources */,
 				AD73EC5D22BC05B200F0C27B /* MarvelSwift.xcdatamodeld in Sources */,
+				ADF23DC722C446AD007E351A /* URLImageView.swift in Sources */,
 				AD1024B622BE5D8800B4647D /* CoreDataController.swift in Sources */,
 				AD2D49FD22BF0B1800E8A3E2 /* Array+MarvelSwift.swift in Sources */,
 				AD2D49F522BEFFED00E8A3E2 /* SeriesEntity+MarvelSwift.swift in Sources */,
 				AD80BE4422C1449B0022721E /* ManagedObjectViewModel.swift in Sources */,
+				ADF23DC522C44685007E351A /* URLImage.swift in Sources */,
 				ADDA209622BFE18A005DBF87 /* MarvelSwiftError.swift in Sources */,
+				ADF23DC922C44808007E351A /* Date+MarvelSwift.swift in Sources */,
 				ADAAAA0A22C3C98800AECEF6 /* Notification+MarvelSwift.swift in Sources */,
 				AD1024A822BD43BA00B4647D /* SearchBar.swift in Sources */,
 				AD1024B822BE65DF00B4647D /* DataController.swift in Sources */,
 				AD1024C722BE6A4300B4647D /* FetchedObjectsViewModel.swift in Sources */,
 				AD73EC5F22BC05B200F0C27B /* ContentView.swift in Sources */,
 				AD73EC5A22BC05B200F0C27B /* SceneDelegate.swift in Sources */,
+				ADF23DC122C44621007E351A /* URLImageViewModel.swift in Sources */,
 				AD1024B222BE49FA00B4647D /* MarvelKitController.swift in Sources */,
 				AD2D49FB22BF01CF00E8A3E2 /* NSManagedObjectContext+MarvelSwift.swift in Sources */,
+				ADF23DC322C44665007E351A /* URLImageController.swift in Sources */,
 				AD2D49F722BF007C00E8A3E2 /* String+MarvelSwift.swift in Sources */,
 				AD1024B422BE4E0F00B4647D /* LocalConfig.swift in Sources */,
 				ADAAAA0C22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift in Sources */,
