@@ -8,6 +8,33 @@
 
 import SwiftUI
 
+extension EdgeInsets {
+
+    static var zero: EdgeInsets {
+        EdgeInsets()
+    }
+
+    init(horizontal: Length = 0, vertical: Length = 0) {
+        self.init(top: vertical, leading: horizontal, bottom: vertical, trailing: horizontal)
+    }
+
+}
+
+extension Length {
+
+    static var margin: Length { 8 }
+
+    // TODO: Can we read the system padding?
+    static var padding: Length { 16 }
+
+    /// The least positive normal number.
+    static var leastNormalMagnitude: Length { Length(Float.leastNormalMagnitude) }
+
+    /// The least positive number.
+    static var leastNonzeroMagnitude: Length { Length(Float.leastNonzeroMagnitude) }
+
+}
+
 // MARK: - Comics
 
 struct ComicsItemView: View {
@@ -49,14 +76,29 @@ struct ComicsItemView: View {
 
 }
 
+struct ComicsSectionHeader: View {
+
+    @State var title: String
+
+    var body: some View {
+        ZStack(alignment: .leading) {
+            Color.white
+            Text(title)
+                .padding(EdgeInsets(horizontal: .padding))
+        }
+    }
+
+}
+
 struct ComicsSectionView: View {
 
     @State var sectionInfo: SectionInfo<ComicEntity>
 
     var body: some View {
-        Section(header: Text(sectionInfo.name)) {
+        Section(header: ComicsSectionHeader(title: sectionInfo.name).listRowInsets(.zero)) {
             ForEach(self.sectionInfo.objects.identified(by: \.objectID)) { comic in
                 ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
+                    .padding(EdgeInsets(vertical: .margin))
             }
         }
     }
@@ -68,10 +110,15 @@ struct ComicsView: View {
     @ObjectBinding var viewModel: FetchedObjectsViewModel<ComicEntity>
 
     var body: some View {
-        List {
-            ForEach(viewModel.sections.identified(by: \.name)) { sectionInfo in
-                ComicsSectionView(sectionInfo: sectionInfo)
+        if viewModel.sections.count < 1 {
+            return Text("Empty").eraseToAnyView()
+        } else {
+            return List {
+                ForEach(viewModel.sections.identified(by: \.name)) { sectionInfo in
+                    ComicsSectionView(sectionInfo: sectionInfo)
+                }
             }
+            .eraseToAnyView()
         }
     }
 
@@ -91,16 +138,62 @@ struct SeriesItemView: View {
 
 }
 
+struct SeriesSectionHeader: View {
+
+    @State var title: String
+
+    var body: some View {
+        ZStack(alignment: .leading) {
+            Color.white
+            Text(title)
+                .font(.headline)
+                .padding(EdgeInsets(horizontal: .padding, vertical: 3.0))
+        }
+    }
+
+}
+
+struct SeriesSectionView: View {
+
+    @ObjectBinding var viewModel: ManagedObjectViewModel<SeriesEntity>
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            SeriesSectionHeader(title: viewModel.title ?? "")
+            ScrollView(showsHorizontalIndicator: false) {
+                HStack(alignment: .bottom) {
+                    ForEach(Array<ComicEntity>(viewModel.comics as! Set<ComicEntity>).identified(by: \.objectID)) { comic in
+                        URLImageView(viewModel: URLImageViewModel(url: URL(string: comic.thumbnailURLString!)!))
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .shadow(radius: 4, x: 0, y: 1)
+                            .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            }
+            .frame(height: 120)
+        }
+    }
+
+}
+
 struct SeriesView: View {
 
     @ObjectBinding var viewModel: FetchedObjectsViewModel<SeriesEntity>
 
     var body: some View {
         List {
+            // Use ForEach instead of the List initializer, because otherwise listRowInsets have no effect.
             ForEach(viewModel.fetchedObjects.identified(by: \.objectID)) { series in
-                SeriesItemView(viewModel: ManagedObjectViewModel(managedObject: series))
+                Section(header: Color.white.listRowInsets(.zero)) {
+                    SeriesSectionView(viewModel: ManagedObjectViewModel(managedObject: series))
+                        .listRowInsets(.zero)
+                }
             }
         }
+        .environment(\.defaultMinListHeaderHeight, .leastNonzeroMagnitude)
     }
 
 }
