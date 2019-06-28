@@ -24,38 +24,18 @@ struct URLImageView: View {
     var body: some View {
         switch viewModel.image {
             case .placeholder:
-                return placeholder().eraseToAnyView()
+                return Image(systemName: "photo.fill").onAppear(perform: appear)
             case .unavailable:
-                return unavailable().eraseToAnyView()
+                return Image(systemName: "xmark.octagon.fill").onAppear()
             case let .remote(image):
-                return remote(uiImage: image).eraseToAnyView()
+                return Image(uiImage: image).onAppear()
             case let .cached(image):
-                return cached(uiImage: image).eraseToAnyView()
+                return Image(uiImage: image).onAppear()
         }
     }
 
-    func placeholder() -> some View {
-        ZStack {
-            Color.gray
-            Image(systemName: "photo.fill")
-        }
-    }
-
-    func unavailable() -> some View {
-        ZStack {
-            Color.gray
-            Image(systemName: "xmark.octagon.fill")
-        }
-    }
-
-    func remote(uiImage: UIImage) -> some View {
-        Image(uiImage: uiImage)
-            .resizable()
-    }
-
-    func cached(uiImage: UIImage) -> some View {
-        Image(uiImage: uiImage)
-            .resizable()
+    func appear() {
+        viewModel.load()
     }
 
 }

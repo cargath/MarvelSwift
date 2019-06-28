@@ -46,6 +46,7 @@ struct ComicsItemView: View {
             URLImageView(viewModel: URLImageViewModel(url: URL(string: viewModel.thumbnailURLString!)!))
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 100, height: 100)
+                .background(Color.gray)
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .shadow(radius: 4, x: 0, y: 1)
             VStack(alignment: .leading) {
@@ -166,6 +167,7 @@ struct SeriesSectionView: View {
                         URLImageView(viewModel: URLImageViewModel(url: URL(string: comic.thumbnailURLString!)!))
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 100, height: 100)
+                            .background(Color.gray)
                             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                             .shadow(radius: 4, x: 0, y: 1)
                             .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
