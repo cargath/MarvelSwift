@@ -39,3 +39,11 @@ struct URLImageView: View {
     }
 
 }
+
+#if DEBUG
+struct URLImageView_Previews : PreviewProvider {
+    static var previews: some View {
+        URLImageView(viewModel: URLImageViewModel(url: "".url!))
+    }
+}
+#endif
