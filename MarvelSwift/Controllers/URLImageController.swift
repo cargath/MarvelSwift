@@ -16,6 +16,14 @@ class URLImageController {
 
     private let broadcast: Broadcast<URL, URLImage> = .init()
 
+    func getImageSync(with url: URL) -> URLImage {
+        if let image = cache[url] {
+            return .cached(image)
+        } else {
+            return .placeholder
+        }
+    }
+
     func getImage(with url: URL, completionHandler: @escaping (URLImage) -> Void) {
 
         if let image = cache[url] {

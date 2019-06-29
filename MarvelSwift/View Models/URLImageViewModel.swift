@@ -13,7 +13,7 @@ class URLImageViewModel: BindableObject {
 
     let url: URL
 
-    var image: URLImage = .placeholder {
+    private(set) var image: URLImage {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 self?.didChange.send()
@@ -28,6 +28,9 @@ class URLImageViewModel: BindableObject {
 
     init(url: URL) {
         self.url = url
+        // URLImageView only triggers `load()` when the placeholder is being show.
+        // -> If we are able to initialize `image` from the cache, we don't trigger an immediate refresh of the view.
+        self.image = URLImageController.shared.getImageSync(with: url)
     }
 
     func load() {
