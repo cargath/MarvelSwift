@@ -8,36 +8,70 @@
 
 import SwiftUI
 
-struct CoverPage: View {
+struct CoverImage: View {
 
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(Color.white)
-            Rectangle()
-                .stroke(Color.gray)
+    enum Style {
+        case stroke
+        case fill
+        case shadow
+    }
+
+    @State var url: URL
+
+    @State var style: Style = .shadow
+
+    var numberOfPages: Int {
+        switch style {
+            case .stroke:
+                return 3
+            case .fill:
+                return 2
+            case .shadow:
+                return 4
         }
     }
 
-}
-
-struct CoverImage: View {
-
-    @State var numberOfPages: Int = 3
-
-    @State var pageDepth: Int = 2
-
-    @State var url: URL
+    var pageDepth: Int {
+        switch style {
+            case .stroke:
+                return 2
+            case .fill:
+                return 2
+            case .shadow:
+                return 1
+        }
+    }
 
     var body: some View {
         ZStack {
             ForEach((0 ... numberOfPages).reversed()) { i in
-                CoverPage()
+                self.page(i)
                     .offset(CGSize(width: i * self.pageDepth, height: i * self.pageDepth))
             }
+            Rectangle()
+                .fill(Color.white)
             URLImageView(viewModel: URLImageViewModel(url: url))
         }
         .padding([.bottom, .trailing], Length(numberOfPages * pageDepth))
+    }
+
+    func page(_ i: Int) -> some View {
+        ZStack {
+            if self.style == .stroke {
+                Rectangle()
+                    .fill(Color.white)
+                Rectangle()
+                    .stroke(Color.gray)
+            }
+            if self.style == .fill {
+                Rectangle()
+                    .fill(Color.gray)
+            }
+            if self.style == .shadow {
+                Rectangle()
+                    .fill(Color(white: Double(i) / Double(self.numberOfPages) - 0.1))
+            }
+        }
     }
 
 }
