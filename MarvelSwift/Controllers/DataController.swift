@@ -80,6 +80,14 @@ extension DataController {
 
 extension DataController {
 
+    func viewModel(for displayOptions: DisplayOptions) -> FetchedObjectsViewModel<ComicEntity> {
+        return FetchedObjectsViewModel(fetchedResultsController: coreDataController.fetchedResultsController(for: displayOptions))
+    }
+
+}
+
+extension DataController {
+
     static let shared = DataController(
         marvelKitController: MarvelKitController(),
         coreDataController: CoreDataController()

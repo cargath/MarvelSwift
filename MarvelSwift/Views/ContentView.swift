@@ -49,6 +49,7 @@ extension Length {
 
 }
 
+/*
 // MARK: - Navigation
 
 struct SolicitsView: View {
@@ -114,6 +115,239 @@ struct ContentView: View {
                 .tag(Tab.subscriptions.rawValue)
         }
         .accentColor(Color.red)
+    }
+
+}
+*/
+
+// MARK: - Display options
+
+import Combine
+
+struct DisplayOptions {
+
+    enum Filter: String, CaseIterable {
+        case all = "All"
+        case notPulled = "Not pulled"
+        case pulled = "Pull List"
+    }
+
+    enum Layout: String, CaseIterable {
+        case list = "List"
+        case grid = "Grid"
+        case carousel = "Carousel"
+    }
+
+    enum Sort: String, CaseIterable {
+        case date = "Date"
+        case series = "Series"
+    }
+
+    var filter: Filter
+
+    var layout: Layout
+
+    var sortBy: Sort
+
+    static let `default` = DisplayOptions(filter: .all, layout: .list, sortBy: .date)
+
+}
+
+extension DisplayOptions {
+
+    var predicate: NSPredicate? {
+        switch filter {
+            case .all:
+                return nil
+            case .notPulled:
+                return NSPredicate(format: "isPulled == false && series.isPulled == false")
+            case .pulled:
+                return NSPredicate(format: "isPulled == true || series.isPulled == true")
+        }
+    }
+
+    var sortDescriptors: [NSSortDescriptor] {
+        switch sortBy {
+            case .date:
+                return [
+                    NSSortDescriptor(ascending: "releaseDate"),
+                    NSSortDescriptor(ascending: "title")
+                ]
+            case .series:
+                return [
+                    NSSortDescriptor(ascending: "series.title"),
+                    NSSortDescriptor(ascending: "title")
+                ]
+        }
+    }
+
+    var sectionName: String {
+        switch sortBy {
+            case .date:
+                return "releaseDateSectionName"
+            case .series:
+                return "seriesTitleSectionName"
+        }
+    }
+
+}
+
+struct DisplayOptionsForm: View {
+
+    @Binding var isPresented: Bool
+
+    @Binding var displayOptions: DisplayOptions
+
+    var body: some View {
+        NavigationView {
+            Form {
+
+                Section {
+                    Picker(selection: $displayOptions.layout, label: Text("Layout")) {
+                        ForEach(DisplayOptions.Layout.allCases.identified(by: \.self)) { layoutOption in
+                            Text(layoutOption.rawValue).tag(layoutOption.self)
+                        }
+                    }
+                    Picker(selection: $displayOptions.sortBy, label: Text("Sort by")) {
+                        ForEach(DisplayOptions.Sort.allCases.identified(by: \.self)) { sortBy in
+                            Text(sortBy.rawValue).tag(sortBy.self)
+                        }
+                    }
+                }
+
+            }
+            .navigationBarTitle(Text("displayOptions.title"))
+            .navigationBarItems(trailing: Button(action: didTapDone) { Text("Done") })
+        }
+    }
+
+    func didTapDone() {
+        isPresented = false
+    }
+
+}
+
+// MARK: - List
+
+struct ComicsList: View {
+
+    @ObjectBinding var viewModel: FetchedObjectsViewModel<ComicEntity>
+
+    var body: some View {
+        List {
+            ForEach(viewModel.sections.identified(by: \.name)) { sectionInfo in
+                ComicsSectionView(sectionInfo: sectionInfo)
+            }
+        }
+    }
+
+}
+
+// MARK: - Grid
+
+struct ComicsGrid: View {
+
+    var body: some View {
+        Text("Comic Grid")
+    }
+
+}
+
+// MARK: - Carousel
+
+struct ComicsCarousel: View {
+
+    var body: some View {
+        Text("Comic Carousel")
+    }
+
+}
+
+// MARK: - Solicitations
+
+struct SolicitationsView: View {
+
+    @State var isPresentingDisplayOptions = false
+
+    @State var displayOptions: DisplayOptions = .default
+
+    var displayOptionsForm: Modal {
+        Modal(DisplayOptionsForm(isPresented: $isPresentingDisplayOptions, displayOptions: $displayOptions), onDismiss: {
+            self.isPresentingDisplayOptions = false
+        })
+    }
+
+    var body: some View {
+        NavigationView {
+            Group {
+                if displayOptions.layout == .list {
+                    ComicsList(viewModel: DataController.shared.viewModel(for: displayOptions))
+                }
+                if displayOptions.layout == .grid {
+                    ComicsGrid()
+                }
+                if displayOptions.layout == .carousel {
+                    ComicsCarousel()
+                }
+            }
+            .navigationBarTitle(Text("solicitations.title"))
+            .navigationBarItems(trailing: HStack(spacing: .padding) {
+                NavigationBarItem.filter(action: didTapFilter)
+                NavigationBarItem.displayOptions(action: didTapDisplayOptions)
+            })
+        }
+        .presentation(isPresentingDisplayOptions ? displayOptionsForm : nil)
+    }
+
+    func didTapFilter() {
+        if displayOptions.filter == .all {
+            displayOptions.filter = .notPulled
+        } else if displayOptions.filter == .notPulled {
+            displayOptions.filter = .all
+        }
+    }
+
+    func didTapDisplayOptions() {
+        isPresentingDisplayOptions = true
+    }
+
+}
+
+// MARK: - PullList
+
+struct PullListView: View {
+
+    var body: some View {
+        NavigationView {
+            Text("pullList.title")
+                .navigationBarTitle(Text("pullList.title"))
+                .navigationBarItems(trailing:
+                    NavigationBarItem.displayOptions(action: didTapDisplayOptions)
+                )
+        }
+    }
+
+    func didTapDisplayOptions() {
+        print("didTapDisplayOptions")
+    }
+
+}
+
+// MARK: - Content
+
+struct ContentView: View {
+
+    @State private var selection = 0
+
+    var body: some View {
+        TabbedView(selection: $selection) {
+            SolicitationsView()
+                .tabItemLabel(Text("solicitations.title"))
+                .tag(0)
+            PullListView()
+                .tabItemLabel(Text("pullList.title"))
+                .tag(1)
+        }
     }
 
 }

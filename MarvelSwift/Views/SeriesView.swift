@@ -47,12 +47,6 @@ struct SeriesSectionView: View {
                     ForEach(Array<ComicEntity>(viewModel.comics as! Set<ComicEntity>).identified(by: \.objectID)) { comic in
                         CoverImage(url: comic.thumbnailURLString!.url!)
                             .frame(width: .thumbnailWidth, height: .thumbnailHeight)
-                        //URLImageView(viewModel: URLImageViewModel(url: URL(string: comic.thumbnailURLString!)!))
-                            //.aspectRatio(contentMode: .fill)
-                            //.frame(width: .thumbnailSize, height: .thumbnailSize)
-                            //.background(Color.gray)
-                            //.clipShape(RoundedRectangle(cornerRadius: .cornerRadius, style: .continuous))
-                            //.shadow(radius: 4, x: 0, y: 1)
                             .padding(.trailing, .padding)
                     }
                 }

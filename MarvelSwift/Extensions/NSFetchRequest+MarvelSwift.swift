@@ -10,7 +10,7 @@ import CoreData
 
 extension NSFetchRequest {
 
-    @objc func with(predicate: NSPredicate) -> Self {
+    @objc func with(predicate: NSPredicate?) -> Self {
         self.predicate = predicate
         return self
     }

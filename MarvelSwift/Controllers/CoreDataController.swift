@@ -61,7 +61,7 @@ extension CoreDataController {
         return NSFetchedResultsController(
             fetchRequest: ComicEntity.solicitsFetchRequest(),
             managedObjectContext: persistentContainer.viewContext,
-            sectionNameKeyPath: "section",
+            sectionNameKeyPath: "releaseDateSectionName",
             cacheName: nil
         )
     }
@@ -70,7 +70,7 @@ extension CoreDataController {
         return NSFetchedResultsController(
             fetchRequest: ComicEntity.pullsFetchRequest(),
             managedObjectContext: persistentContainer.viewContext,
-            sectionNameKeyPath: "section",
+            sectionNameKeyPath: "releaseDateSectionName",
             cacheName: nil
         )
     }
@@ -80,6 +80,19 @@ extension CoreDataController {
             fetchRequest: SeriesEntity.fetchRequest().unsorted(),
             managedObjectContext: persistentContainer.viewContext,
             sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+    }
+
+}
+
+extension CoreDataController {
+
+    func fetchedResultsController(for displayOptions: DisplayOptions) -> NSFetchedResultsController<ComicEntity> {
+        return NSFetchedResultsController(
+            fetchRequest: ComicEntity.fetchRequest().with(predicate: displayOptions.predicate).sorted(by: displayOptions.sortDescriptors),
+            managedObjectContext: persistentContainer.viewContext,
+            sectionNameKeyPath: displayOptions.sectionName,
             cacheName: nil
         )
     }

@@ -118,11 +118,21 @@ extension ComicEntity {
 
 extension ComicEntity {
 
-    @objc var section: String {
+    @objc var releaseDateSectionName: String {
         return (releaseDate as Date?)?
             .localizedString(dateStyle: .long)
             .uppercased() ?? ""
     }
+
+    @objc var seriesTitleSectionName: String {
+        return series?
+            .title?
+            .uppercased() ?? ""
+    }
+
+}
+
+extension ComicEntity {
 
     var creators: String {
         return [writer, artist, colorArtist]

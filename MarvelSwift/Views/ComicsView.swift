@@ -8,24 +8,6 @@
 
 import SwiftUI
 
-struct IssueNumber: View {
-
-    @State var issueNumber: Int64
-
-    var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 0) {
-            Text("#")
-                .font(.footnote)
-                .fontWeight(.black)
-                .color(.primary)
-            Text("\(issueNumber)")
-                .fontWeight(.black)
-                .color(.primary)
-        }
-    }
-
-}
-
 struct ComicsItemView: View {
 
     @ObjectBinding var viewModel: ManagedObjectViewModel<ComicEntity>
@@ -88,11 +70,11 @@ struct ComicsSectionView: View {
 
     var body: some View {
         Section(header: ComicsSectionHeader(title: sectionInfo.name).listRowInsets(.zero)) {
-            ForEach(self.sectionInfo.objects.identified(by: \.objectID)) { comic in
-                NavigationButton(destination: ComicDetailView()) {
+            ForEach(sectionInfo.objects.identified(by: \.objectID)) { comic in
+//                NavigationButton(destination: ComicDetailView()) {
                     ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
                         .padding(EdgeInsets(vertical: .margin))
-                }
+//                }
             }
         }
     }

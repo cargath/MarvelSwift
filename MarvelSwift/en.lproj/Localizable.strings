@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  MarvelSwift
+
+  Created by Carsten Könemann on 30.06.2019.
+  Copyright © 2019 cargath. All rights reserved.
+*/
+
+"solicitations.title" = "Solicitations";
+"pullList.title" = "Pull List";
+
+"filter.title" = "Filter";
+"displayOptions.title" = "Layout";
