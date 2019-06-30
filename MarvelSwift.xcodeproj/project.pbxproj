@@ -35,6 +35,9 @@
 		ADA9371C22C17A7200607569 /* NSSortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA9371B22C17A7200607569 /* NSSortDescriptor.swift */; };
 		ADAAAA0A22C3C98800AECEF6 /* Notification+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAAA0922C3C98800AECEF6 /* Notification+MarvelSwift.swift */; };
 		ADAAAA0C22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */; };
+		ADB48F1022C816C600D7F33D /* PageCurl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB48F0F22C816C600D7F33D /* PageCurl.swift */; };
+		ADB48F1222C8170D00D7F33D /* CoverImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB48F1122C8170D00D7F33D /* CoverImage.swift */; };
+		ADB48F1422C82ACF00D7F33D /* ComicDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB48F1322C82ACF00D7F33D /* ComicDetailView.swift */; };
 		ADDA209622BFE18A005DBF87 /* MarvelSwiftError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDA209522BFE18A005DBF87 /* MarvelSwiftError.swift */; };
 		ADE6F94C22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE6F94B22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift */; };
 		ADF23DC122C44621007E351A /* URLImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF23DC022C44621007E351A /* URLImageViewModel.swift */; };
@@ -87,6 +90,9 @@
 		ADA9371B22C17A7200607569 /* NSSortDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSortDescriptor.swift; sourceTree = "<group>"; };
 		ADAAAA0922C3C98800AECEF6 /* Notification+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+MarvelSwift.swift"; sourceTree = "<group>"; };
 		ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+MarvelSwift.swift"; sourceTree = "<group>"; };
+		ADB48F0F22C816C600D7F33D /* PageCurl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCurl.swift; sourceTree = "<group>"; };
+		ADB48F1122C8170D00D7F33D /* CoverImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImage.swift; sourceTree = "<group>"; };
+		ADB48F1322C82ACF00D7F33D /* ComicDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailView.swift; sourceTree = "<group>"; };
 		ADDA209522BFE18A005DBF87 /* MarvelSwiftError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelSwiftError.swift; sourceTree = "<group>"; };
 		ADE6F94B22BE78590054FD71 /* NSFetchRequest+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+MarvelSwift.swift"; sourceTree = "<group>"; };
 		ADF23DC022C44621007E351A /* URLImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageViewModel.swift; sourceTree = "<group>"; };
@@ -133,8 +139,11 @@
 		AD1024AD22BDAEA500B4647D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				ADB48F1322C82ACF00D7F33D /* ComicDetailView.swift */,
 				AD3B71AE22C7D5C900D44DE2 /* ComicsView.swift */,
 				AD73EC5E22BC05B200F0C27B /* ContentView.swift */,
+				ADB48F1122C8170D00D7F33D /* CoverImage.swift */,
+				ADB48F0F22C816C600D7F33D /* PageCurl.swift */,
 				AD3B71B022C7D68F00D44DE2 /* SeriesView.swift */,
 				ADF23DC622C446AD007E351A /* URLImageView.swift */,
 			);
@@ -395,11 +404,14 @@
 				AD1CAC2922C52592000F062F /* Cache.swift in Sources */,
 				ADF23DC922C44808007E351A /* Date+MarvelSwift.swift in Sources */,
 				ADAAAA0A22C3C98800AECEF6 /* Notification+MarvelSwift.swift in Sources */,
+				ADB48F1222C8170D00D7F33D /* CoverImage.swift in Sources */,
 				AD3B71AF22C7D5C900D44DE2 /* ComicsView.swift in Sources */,
 				AD1024A822BD43BA00B4647D /* SearchBar.swift in Sources */,
 				AD1024B822BE65DF00B4647D /* DataController.swift in Sources */,
 				AD1024C722BE6A4300B4647D /* FetchedObjectsViewModel.swift in Sources */,
+				ADB48F1022C816C600D7F33D /* PageCurl.swift in Sources */,
 				AD73EC5F22BC05B200F0C27B /* ContentView.swift in Sources */,
+				ADB48F1422C82ACF00D7F33D /* ComicDetailView.swift in Sources */,
 				AD1CAC2B22C52B87000F062F /* Broadcast.swift in Sources */,
 				AD73EC5A22BC05B200F0C27B /* SceneDelegate.swift in Sources */,
 				ADF23DC122C44621007E351A /* URLImageViewModel.swift in Sources */,

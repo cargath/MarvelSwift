@@ -45,19 +45,21 @@ struct SeriesSectionView: View {
             ScrollView(showsHorizontalIndicator: false) {
                 HStack(alignment: .center) {
                     ForEach(Array<ComicEntity>(viewModel.comics as! Set<ComicEntity>).identified(by: \.objectID)) { comic in
-                        URLImageView(viewModel: URLImageViewModel(url: URL(string: comic.thumbnailURLString!)!))
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: .thumbnailSize, height: .thumbnailSize)
-                            .background(Color.gray)
-                            .clipShape(RoundedRectangle(cornerRadius: .cornerRadius, style: .continuous))
-                            .shadow(radius: 4, x: 0, y: 1)
+                        CoverImage(url: comic.thumbnailURLString!.url!)
+                            .frame(width: .thumbnailWidth, height: .thumbnailHeight)
+                        //URLImageView(viewModel: URLImageViewModel(url: URL(string: comic.thumbnailURLString!)!))
+                            //.aspectRatio(contentMode: .fill)
+                            //.frame(width: .thumbnailSize, height: .thumbnailSize)
+                            //.background(Color.gray)
+                            //.clipShape(RoundedRectangle(cornerRadius: .cornerRadius, style: .continuous))
+                            //.shadow(radius: 4, x: 0, y: 1)
                             .padding(.trailing, .padding)
                     }
                 }
-                .frame(height: .thumbnailSize + .padding)
+                .frame(height: .thumbnailHeight + .padding)
                 .padding(.leading, .padding)
             }
-            .frame(height: .thumbnailSize + .padding)
+            .frame(height: .thumbnailHeight + .padding)
         }
         .padding(.bottom, .padding)
     }

@@ -21,16 +21,38 @@ struct URLImageView: View {
 
     @ObjectBinding var viewModel: URLImageViewModel
 
-    var body: some View {
+    var placeholderImage: Image? {
+        if case .placeholder = viewModel.image {
+            return Image(systemName: "photo.fill")
+        } else {
+            return nil
+        }
+    }
+
+    var unavailableImage: Image? {
+        if case .unavailable = viewModel.image {
+            return Image(systemName: "xmark.octagon.fill")
+        } else {
+            return nil
+        }
+    }
+
+    var uiImage: Image? {
         switch viewModel.image {
-            case .placeholder:
-                return Image(systemName: "photo.fill").onAppear(perform: appear)
-            case .unavailable:
-                return Image(systemName: "xmark.octagon.fill").onAppear()
             case let .remote(image):
-                return Image(uiImage: image).onAppear()
+                return Image(uiImage: image)
             case let .cached(image):
-                return Image(uiImage: image).onAppear()
+                return Image(uiImage: image)
+            default:
+                return nil
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            placeholderImage?.onAppear(perform: appear)
+            unavailableImage
+            uiImage?.resizable().mask(PageCurl(radius: 22))
         }
     }
 

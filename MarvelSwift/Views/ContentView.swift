@@ -32,6 +32,10 @@ extension Length {
 
     static var thumbnailSize: Length { 100 }
 
+    static var thumbnailWidth: Length { 168.3 * 0.5 }
+
+    static var thumbnailHeight: Length { 260 * 0.5 }
+
 }
 
 // Without manually casting to Length, .environment(\.defaultMinListHeaderHeight, .leastNonzeroMagnitude) doesn't get rid of the List separators.
@@ -89,19 +93,25 @@ struct SubscriptionsView: View {
 
 struct ContentView: View {
 
+    enum Tab: Int {
+        case solicitations
+        case pullList
+        case subscriptions
+    }
+
     @State private var selection = 0
 
     var body: some View {
         TabbedView(selection: $selection) {
             SolicitsView()
                 .tabItemLabel(Text("Solicits"))
-                .tag(0)
+                .tag(Tab.solicitations.rawValue)
             PullsView()
                 .tabItemLabel(Text("Pull List"))
-                .tag(1)
+                .tag(Tab.pullList.rawValue)
             SubscriptionsView()
                 .tabItemLabel(Text("Subscriptions"))
-                .tag(2)
+                .tag(Tab.subscriptions.rawValue)
         }
         .accentColor(Color.red)
     }
