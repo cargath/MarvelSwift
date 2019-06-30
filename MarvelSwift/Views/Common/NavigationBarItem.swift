@@ -30,8 +30,8 @@ struct NavigationBarItem: View {
 
 extension NavigationBarItem {
 
-    static func filter(action: @escaping () -> Void) -> NavigationBarItem {
-        NavigationBarItem(action: action, systemImageName: "line.horizontal.3.decrease", title: "filter.title")
+    static func filter(action: @escaping () -> Void, systemImageName: String) -> NavigationBarItem {
+        NavigationBarItem(action: action, systemImageName: systemImageName, title: "filter.title")
     }
 
     static func displayOptions(action: @escaping () -> Void) -> NavigationBarItem {

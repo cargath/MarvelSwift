@@ -90,9 +90,9 @@ extension CoreDataController {
 
     func fetchedResultsController(for displayOptions: DisplayOptions) -> NSFetchedResultsController<ComicEntity> {
         return NSFetchedResultsController(
-            fetchRequest: ComicEntity.fetchRequest().with(predicate: displayOptions.predicate).sorted(by: displayOptions.sortDescriptors),
+            fetchRequest: ComicEntity.fetchRequest().with(predicate: displayOptions.filter.predicate).sorted(by: displayOptions.sortBy.sortDescriptors),
             managedObjectContext: persistentContainer.viewContext,
-            sectionNameKeyPath: displayOptions.sectionName,
+            sectionNameKeyPath: displayOptions.sortBy.sectionName,
             cacheName: nil
         )
     }

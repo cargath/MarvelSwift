@@ -153,10 +153,21 @@ struct DisplayOptions {
 
 }
 
-extension DisplayOptions {
+extension DisplayOptions.Filter {
+
+    var systemImageName: String {
+        switch self {
+            case .all:
+                return "line.horizontal.3.decrease.circle"
+            case .notPulled:
+                return "line.horizontal.3.decrease.circle.fill"
+            case .pulled:
+                return ""
+        }
+    }
 
     var predicate: NSPredicate? {
-        switch filter {
+        switch self {
             case .all:
                 return nil
             case .notPulled:
@@ -166,8 +177,12 @@ extension DisplayOptions {
         }
     }
 
+}
+
+extension DisplayOptions.Sort {
+
     var sortDescriptors: [NSSortDescriptor] {
-        switch sortBy {
+        switch self {
             case .date:
                 return [
                     NSSortDescriptor(ascending: "releaseDate"),
@@ -182,7 +197,7 @@ extension DisplayOptions {
     }
 
     var sectionName: String {
-        switch sortBy {
+        switch self {
             case .date:
                 return "releaseDateSectionName"
             case .series:
@@ -292,7 +307,7 @@ struct SolicitationsView: View {
             }
             .navigationBarTitle(Text("solicitations.title"))
             .navigationBarItems(trailing: HStack(spacing: .padding) {
-                NavigationBarItem.filter(action: didTapFilter)
+                NavigationBarItem.filter(action: didTapFilter, systemImageName: displayOptions.filter.systemImageName)
                 NavigationBarItem.displayOptions(action: didTapDisplayOptions)
             })
         }
