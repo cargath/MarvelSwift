@@ -71,10 +71,10 @@ struct ComicsSectionView: View {
     var body: some View {
         Section(header: ComicsSectionHeader(title: sectionInfo.name).listRowInsets(.zero)) {
             ForEach(sectionInfo.objects.identified(by: \.objectID)) { comic in
-//                NavigationButton(destination: ComicDetailView()) {
+                // NavigationButton(destination: LazyView(ComicDetailView())) {
                     ComicsItemView(viewModel: ManagedObjectViewModel(managedObject: comic))
                         .padding(EdgeInsets(vertical: .margin))
-//                }
+                // }
             }
         }
     }

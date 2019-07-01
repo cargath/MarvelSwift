@@ -216,20 +216,18 @@ struct DisplayOptionsForm: View {
     var body: some View {
         NavigationView {
             Form {
-
-                Section {
-                    Picker(selection: $displayOptions.layout, label: Text("Layout")) {
-                        ForEach(DisplayOptions.Layout.allCases.identified(by: \.self)) { layoutOption in
-                            Text(layoutOption.rawValue).tag(layoutOption.self)
-                        }
-                    }
-                    Picker(selection: $displayOptions.sortBy, label: Text("Sort by")) {
-                        ForEach(DisplayOptions.Sort.allCases.identified(by: \.self)) { sortBy in
-                            Text(sortBy.rawValue).tag(sortBy.self)
-                        }
+                // "Layout" picker
+                Picker(selection: $displayOptions.layout, label: Text("Layout")) {
+                    ForEach(DisplayOptions.Layout.allCases.identified(by: \.self)) { layoutOption in
+                        Text(layoutOption.rawValue).tag(layoutOption.self)
                     }
                 }
-
+                // "Sort by" picker
+                Picker(selection: $displayOptions.sortBy, label: Text("Sort by")) {
+                    ForEach(DisplayOptions.Sort.allCases.identified(by: \.self)) { sortBy in
+                        Text(sortBy.rawValue).tag(sortBy.self)
+                    }
+                }
             }
             .navigationBarTitle(Text("displayOptions.title"))
             .navigationBarItems(trailing: Button(action: didTapDone) { Text("Done") })

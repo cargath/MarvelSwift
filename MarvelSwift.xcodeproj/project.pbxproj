@@ -32,6 +32,7 @@
 		AD73EC6722BC05B400F0C27B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD73EC6522BC05B400F0C27B /* LaunchScreen.storyboard */; };
 		AD73EC7222BC05B400F0C27B /* MarvelSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD73EC7122BC05B400F0C27B /* MarvelSwiftTests.swift */; };
 		AD80BE4422C1449B0022721E /* ManagedObjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD80BE4322C1449B0022721E /* ManagedObjectViewModel.swift */; };
+		AD8BFCF822CA98A2003B544B /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8BFCF722CA98A2003B544B /* LazyView.swift */; };
 		ADA9371C22C17A7200607569 /* NSSortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA9371B22C17A7200607569 /* NSSortDescriptor.swift */; };
 		ADAAAA0A22C3C98800AECEF6 /* Notification+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAAA0922C3C98800AECEF6 /* Notification+MarvelSwift.swift */; };
 		ADAAAA0C22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */; };
@@ -90,6 +91,7 @@
 		AD73EC7122BC05B400F0C27B /* MarvelSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelSwiftTests.swift; sourceTree = "<group>"; };
 		AD73EC7322BC05B400F0C27B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD80BE4322C1449B0022721E /* ManagedObjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectViewModel.swift; sourceTree = "<group>"; };
+		AD8BFCF722CA98A2003B544B /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		ADA9371B22C17A7200607569 /* NSSortDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSortDescriptor.swift; sourceTree = "<group>"; };
 		ADAAAA0922C3C98800AECEF6 /* Notification+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+MarvelSwift.swift"; sourceTree = "<group>"; };
 		ADAAAA0B22C3C9DA00AECEF6 /* NSManagedObject+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+MarvelSwift.swift"; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			children = (
 				ADB48F1122C8170D00D7F33D /* CoverImage.swift */,
 				ADF5463922C96C7400B1773C /* IssueNumber.swift */,
+				AD8BFCF722CA98A2003B544B /* LazyView.swift */,
 				ADF5463622C96B0F00B1773C /* NavigationBarItem.swift */,
 				ADB48F0F22C816C600D7F33D /* PageCurl.swift */,
 				ADF23DC622C446AD007E351A /* URLImageView.swift */,
@@ -441,6 +444,7 @@
 				AD1CAC2B22C52B87000F062F /* Broadcast.swift in Sources */,
 				AD73EC5A22BC05B200F0C27B /* SceneDelegate.swift in Sources */,
 				ADF23DC122C44621007E351A /* URLImageViewModel.swift in Sources */,
+				AD8BFCF822CA98A2003B544B /* LazyView.swift in Sources */,
 				AD1024B222BE49FA00B4647D /* MarvelKitController.swift in Sources */,
 				AD2D49FB22BF01CF00E8A3E2 /* NSManagedObjectContext+MarvelSwift.swift in Sources */,
 				ADF23DC322C44665007E351A /* URLImageController.swift in Sources */,
