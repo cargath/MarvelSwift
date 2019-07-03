@@ -40,10 +40,10 @@ struct SeriesSectionView: View {
     @ObjectBinding var viewModel: ManagedObjectViewModel<SeriesEntity>
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: HorizontalAlignment.leading, spacing: 0) {
             SeriesSectionHeader(title: viewModel.title ?? "")
-            ScrollView(showsHorizontalIndicator: false) {
-                HStack(alignment: .center) {
+            ScrollView(showsIndicators: false) {
+                HStack(alignment: VerticalAlignment.center) {
                     ForEach(Array<ComicEntity>(viewModel.comics as! Set<ComicEntity>).identified(by: \.objectID)) { comic in
                         CoverImage(url: comic.thumbnailURLString!.url!)
                             .frame(width: .thumbnailWidth, height: .thumbnailHeight)

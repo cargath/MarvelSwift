@@ -350,15 +350,20 @@ struct PullListView: View {
 
 struct ContentView: View {
 
-    @State private var selection = 0
+    @State private var selection: Int = 0
 
     var body: some View {
         TabbedView(selection: $selection) {
             SolicitationsView()
-                .tabItemLabel(Text("solicitations.title"))
+                .tabItem {
+                    Image(systemName: "circle")
+                    Text("solicitations.title")
+                }
                 .tag(0)
             PullListView()
-                .tabItemLabel(Text("pullList.title"))
+                .tabItem {
+                    Text("pullList.title")
+                }
                 .tag(1)
         }
     }
