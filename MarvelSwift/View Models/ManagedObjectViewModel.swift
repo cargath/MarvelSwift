@@ -29,7 +29,7 @@ class ManagedObjectViewModel<ResultType>: BindableObject where ResultType: NSMan
     private var cancellable: AnyCancellable?
 
     // MARK: BindableObject
-    var didChange = PassthroughSubject<Void, Never>()
+    var willChange = PassthroughSubject<Void, Never>()
 
     init(managedObject: ResultType, autoUpdates: Bool = false, autoSaves: Bool = false) {
         self.managedObject = managedObject
@@ -37,13 +37,14 @@ class ManagedObjectViewModel<ResultType>: BindableObject where ResultType: NSMan
         if autoUpdates {
             cancellable = managedObject
                 .objectDidChangePublisher()?
-                .sink(receiveValue: handle(objectDidChangeNotification:))
-                .eraseToAnyCancellable()
+                .sink(receiveCompletion: { error in }, receiveValue: handle(objectDidChangeNotification:))
+                // .sink(receiveValue: handle(objectDidChangeNotification:))
+                // .eraseToAnyCancellable()
         }
     }
 
     private func handle(objectDidChangeNotification: Notification) {
-        didChange.send()
+        willChange.send()
     }
 
     // MARK: @dynamicMemberLookup

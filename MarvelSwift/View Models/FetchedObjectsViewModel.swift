@@ -59,7 +59,7 @@ class FetchedObjectsViewModel<ResultType>: NSObject, NSFetchedResultsControllerD
     var errorDescription: String?
 
     // MARK: BindableObject
-    var didChange = PassthroughSubject<Void, Never>()
+    var willChange = PassthroughSubject<Void, Never>()
 
     init(fetchedResultsController: NSFetchedResultsController<ResultType>) {
         self.fetchedResultsController = fetchedResultsController
@@ -82,7 +82,7 @@ class FetchedObjectsViewModel<ResultType>: NSObject, NSFetchedResultsControllerD
 
     // MARK: NSFetchedResultsControllerDelegate
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        didChange.send()
+        willChange.send()
     }
 
 }

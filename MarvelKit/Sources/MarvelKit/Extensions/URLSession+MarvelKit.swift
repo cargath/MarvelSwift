@@ -72,8 +72,7 @@ public extension URLSession {
                 .tryMap { try JSONDecoder().resource(from: $0) }
                 .eraseToAnyPublisher()
         } else {
-            return Publishers
-                .Fail(error: MarvelKit.Error(message: "Failed to create URL for resource.", code: "-1"))
+            return Fail(error: MarvelKit.Error(message: "Failed to create URL for resource.", code: "-1"))
                 .eraseToAnyPublisher()
         }
     }

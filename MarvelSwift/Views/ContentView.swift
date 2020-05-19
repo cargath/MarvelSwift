@@ -252,6 +252,7 @@ struct ComicsList: View {
                 ComicsSectionView(sectionInfo: sectionInfo)
             }
         }
+        .onAppear(perform: { print("onAppear") })
     }
 
 }
@@ -356,12 +357,13 @@ struct ContentView: View {
         TabbedView(selection: $selection) {
             SolicitationsView()
                 .tabItem {
-                    Image(systemName: "circle")
+                    Image(systemName: "bag.fill")
                     Text("solicitations.title")
                 }
                 .tag(0)
             PullListView()
                 .tabItem {
+                    Image(systemName: "tray.and.arrow.down.fill")
                     Text("pullList.title")
                 }
                 .tag(1)

@@ -17,10 +17,10 @@ struct IssueNumber: View {
             Text("#")
                 .font(.footnote)
                 .fontWeight(.black)
-                .color(.primary)
+                .foregroundColor(.primary)
             Text("\(issueNumber)")
                 .fontWeight(.black)
-                .color(.primary)
+                .foregroundColor(.primary)
         }
     }
 

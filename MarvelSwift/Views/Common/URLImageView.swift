@@ -52,7 +52,10 @@ struct URLImageView: View {
         ZStack {
             placeholderImage?.onAppear(perform: appear)
             unavailableImage
-            uiImage?.resizable().mask(PageCurl(radius: 22))
+            uiImage?
+                .resizable()
+                .mask(PageCurl(radius: 22))
+                .mask(PageCorners(radius: 4))
         }
     }
 

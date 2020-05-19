@@ -21,6 +21,7 @@
 		AD2D49F722BF007C00E8A3E2 /* String+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2D49F622BF007C00E8A3E2 /* String+MarvelSwift.swift */; };
 		AD2D49FB22BF01CF00E8A3E2 /* NSManagedObjectContext+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2D49FA22BF01CF00E8A3E2 /* NSManagedObjectContext+MarvelSwift.swift */; };
 		AD2D49FD22BF0B1800E8A3E2 /* Array+MarvelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2D49FC22BF0B1800E8A3E2 /* Array+MarvelSwift.swift */; };
+		AD3836F922CFD04F00842C7E /* PageCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3836F822CFD04F00842C7E /* PageCorners.swift */; };
 		AD3B71AF22C7D5C900D44DE2 /* ComicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3B71AE22C7D5C900D44DE2 /* ComicsView.swift */; };
 		AD3B71B122C7D68F00D44DE2 /* SeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3B71B022C7D68F00D44DE2 /* SeriesView.swift */; };
 		AD73EC5822BC05B200F0C27B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD73EC5722BC05B200F0C27B /* AppDelegate.swift */; };
@@ -76,6 +77,7 @@
 		AD2D49F622BF007C00E8A3E2 /* String+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MarvelSwift.swift"; sourceTree = "<group>"; };
 		AD2D49FA22BF01CF00E8A3E2 /* NSManagedObjectContext+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+MarvelSwift.swift"; sourceTree = "<group>"; };
 		AD2D49FC22BF0B1800E8A3E2 /* Array+MarvelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+MarvelSwift.swift"; sourceTree = "<group>"; };
+		AD3836F822CFD04F00842C7E /* PageCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCorners.swift; sourceTree = "<group>"; };
 		AD3B71AE22C7D5C900D44DE2 /* ComicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsView.swift; sourceTree = "<group>"; };
 		AD3B71B022C7D68F00D44DE2 /* SeriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesView.swift; sourceTree = "<group>"; };
 		AD73EC5422BC05B200F0C27B /* MarvelSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -279,6 +281,7 @@
 				ADF5463922C96C7400B1773C /* IssueNumber.swift */,
 				AD8BFCF722CA98A2003B544B /* LazyView.swift */,
 				ADF5463622C96B0F00B1773C /* NavigationBarItem.swift */,
+				AD3836F822CFD04F00842C7E /* PageCorners.swift */,
 				ADB48F0F22C816C600D7F33D /* PageCurl.swift */,
 				ADF23DC622C446AD007E351A /* URLImageView.swift */,
 			);
@@ -445,6 +448,7 @@
 				AD73EC5A22BC05B200F0C27B /* SceneDelegate.swift in Sources */,
 				ADF23DC122C44621007E351A /* URLImageViewModel.swift in Sources */,
 				AD8BFCF822CA98A2003B544B /* LazyView.swift in Sources */,
+				AD3836F922CFD04F00842C7E /* PageCorners.swift in Sources */,
 				AD1024B222BE49FA00B4647D /* MarvelKitController.swift in Sources */,
 				AD2D49FB22BF01CF00E8A3E2 /* NSManagedObjectContext+MarvelSwift.swift in Sources */,
 				ADF23DC322C44665007E351A /* URLImageController.swift in Sources */,

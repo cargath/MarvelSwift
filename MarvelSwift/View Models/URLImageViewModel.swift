@@ -16,7 +16,7 @@ class URLImageViewModel: BindableObject {
     private(set) var image: URLImage {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                self?.didChange.send()
+                self?.willChange.send()
             }
         }
     }
@@ -24,7 +24,7 @@ class URLImageViewModel: BindableObject {
     private(set) var downloading: Bool = false
 
     // MARK: BindableObject
-    var didChange = PassthroughSubject<Void, Never>()
+    var willChange = PassthroughSubject<Void, Never>()
 
     init(url: URL) {
         self.url = url
